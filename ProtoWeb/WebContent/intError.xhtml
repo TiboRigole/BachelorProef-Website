@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+	<link rel="shortcut icon" href="#{resource['images/favicon.jpg']}" />
+	<h:outputStylesheet library="files/css" name="algemeen.css" />
+	<h:outputStylesheet library="files/css" name="onthaal.css" />
+	<h:outputStylesheet library="files/css" name="errorpagina.css" />
+	<link
+		href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
+		rel="stylesheet" id="bootstrap-css" />
+	<script
+		src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+	<title><ui:insert name="title">500 Error</ui:insert></title>
+</h:head>
+
+<nav class=" navbar nav-bottom"> </nav>
+
+<h:body>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="error-template">
+					<h1>Sorry!</h1>
+					<h2>500 Error</h2>
+					<br />
+					<div class="error-details">Deze pagina gaf een interne fout.</div>
+					<br />
+					<div class="error-actions">
+						<a href="http://localhost:8080/ProtoWeb/"
+							class="btn btn-primary btn-lg"><span
+							class="glyphicon glyphicon-home"></span> Homepagina </a> <a
+							href="mailto:admin@retailsonar.be?Subject=Pagina%20error&amp;body=Beste,%0A%0AIk%20kwam%20op%20volgende%20pagina%20terecht:%0A#{userBean.getURL()}%0A%0AMet%20vriendelijke%20groeten,%0A#{userBean.getNaam()}%0A%20"
+							class="btn btn-default btn-lg"><span
+							class="glyphicon glyphicon-envelope"></span> Contact opnemen </a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</h:body>
+
+</html>

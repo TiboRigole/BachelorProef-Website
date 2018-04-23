@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+      
+<h:head>
+  <link rel="shortcut icon" href="#{resource['images/favicon.jpg']}" />
+	<link rel="stylesheet" href="#{resource['files/css/bootstrap.min.css']}" />
+	<link rel="stylesheet" href="#{resource['files/css/styles.css']}" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/css/bootstrap.min.css" />
+  	
+  	<!-- de iconen vertalen -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+	
+  	<title>
+    	<ui:insert name="title">Admin menu</ui:insert>
+  	</title>
+</h:head>
+
+
+<!-- Lees de variabele in de link -->
+	<f:metadata>
+		<f:viewParam name="pand" value="#{TemplatesBean.template.id}"/>
+		<f:viewAction action="#{templatesBean.getTemplateById()}" />
+	</f:metadata>
+
+<h:body
+	style="background: url(#{resource['images/dubai.jpg']}) no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover">
+
+	<!-- navigatiebar boven elke pagina -->
+	<nav id="nav-main" class="nav-bottom navbar navbar-expand-lg navbar-light bg-white">
+			
+		  		<img src="#{resource['images/logo.gif']}" class="helper" style="margin-bottom:5px;margin-right:10px;width:30px"/>
+		  	<div class="navbar-header">
+				<a class="navbar-brand" style="color:#EE3251" href="https://retailsonar.com/" target="_blank">RetailSonar</a>
+			</div>
+			<ul class="navbar-nav ml-auto">
+			
+			<!-- knop annuleer, rechts op de pagina -->
+			<h:form>
+				<a class="nav-link" href="startNieuw.xhtml">Terug</a>
+			</h:form>
+			</ul>	
+	</nav>
+
+
+<!-- rest van de pagina: checkboxes die dan een 1 of een 0 zullen genereren voor de templates waarden -->
+<!-- nu doen met een tabel, later doen met iets anders (mooier) -->
+<!-- de update button zal ook nog niet werken, vragen aan aaron hoe hij de update user button heeft gedaan. -->
+<!-- de tabel -->
+		
+		
+		<div class="container">
+			<h:form id="my-form">
+				<!-- alles dat in de db staat weergeven in een tabel -->
+			<h:dataTable id="dataTable" class="table dataTable" value="#{templatesBean.getTemplateById()}" var="template">
+				
+				
+				<h:column>
+					<f:facet id="facet" name="header">
+						<h:outputText class="text-center" style="color:white;" id="lengtevoorgevel" value="lengte voorgevel" />
+					</f:facet>
+					<h:outputText style="color:white" value="#{template.lengtevoorgevel}"/>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:outputText class="text-center" style="color:white;" id="oppervlakte" value="oppervlakte" />
+					</f:facet>
+					<h:outputText style="color:white" class="login_user" value="#{template.oppervlakte}"/>
+				</h:column>			
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText class="text-center" style="color:white;" id="parking" value="parking" />
+					</f:facet>
+					<h:outputText style="color:white" class="login_user" value="#{template.parking}"/>
+				</h:column>						
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText class="text-center" style="color:white;" id="commercieleActiviteit" value="commercieleActiviteit" />
+					</f:facet>
+					<h:outputText style="color:white" class="login_user" value="#{template.commercieleActiviteit}"/>
+				</h:column>					
+				
+				<h:column>
+					<f:facet name="header">
+						<h:outputText class="text-center" style="color:white;" id="publiekTransport" value="publiekTransport" />
+					</f:facet>
+					<h:outputText style="color:white" class="login_user" value="#{template.publiekTransport}"/>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:outputText class="text-center" style="color:white;" id="education" value="education" />
+					</f:facet>
+					<h:outputText style="color:white" class="login_user" value="#{template.education}"/>
+				</h:column>	
+				
+				</h:dataTable>
+			</h:form>
+			
+		</div>
+
+		<input type="checkbox" name="ckbx1" value="true" />
+		
+		<h:outputText style="color:white" class="login_user" value="de tabel zullen we hierna maken"/>
+		<h:outputText style="color:white" class="login_user" value="de tabel zullen we hierna maken"/>
+		<h:outputText style="color:white" class="login_user" value="de tabel zullen we hierna maken"/>
+		<h:outputText style="color:white" class="login_user" value="de tabel zullen we hierna maken"/>
+		
+		<div class="container">
+			<h:form id="my-form4">
+				<!-- alles dat in de db staat weergeven in een tabel -->
+			<h:dataTable id="dataTable" class="table dataTable" value="#{parameterBean.getParameterAlles()}" var="parameter" style="widt:25px;">
+				
+				
+				<h:column>
+					<f:facet id="facet" name="header">
+						<h:outputText class="text-center" style="color:white;" id="lengtevoorgevel" value="lengte voorgevel" />
+					</f:facet>
+					<h:outputText style="color:white" value="#{parameter.idParameter}"/>
+				</h:column>
+				
+				
+			</h:dataTable>
+			</h:form>
+		</div>
+		<!--  weergegeven in ANDERE VOLGORDE DAN VERWACHT -->
+		
+		<!--  commercieleactiviteit
+				education
+				lengtevoorgevel
+				oppervlakte
+				parking
+				publiekTransport -->
+				
+		<!--  geen idee als we parameter local en ejb enzo gaan gebruiken, alles ervoor was gedaan met native querys
+		en de methode die ik net geimplementeerd heb zal waarschijnlijk niet gebruikt worden -->
+		
+		<div class="container">
+			<h:form id="my-form5">
+				<!-- alles dat in de db staat weergeven in een tabel -->
+			<h:dataTable id="dataTable" class="table dataTable" value="#{templatesBean.getNamen()}" var="parameter" style="widt:25px;">
+				
+				
+				<h:column>
+					<f:facet id="facet" name="header">
+						<h:outputText class="text-center" style="color:white;" id="lengtevoorgevel" value="lengte voorgevel" />
+					</f:facet>
+					<h:outputText style="color:white" value="#{parameter}"/>
+				</h:column>
+				
+				
+			</h:dataTable>
+			</h:form>
+		</div>
+		
+</h:body>		
+</html>
+
+

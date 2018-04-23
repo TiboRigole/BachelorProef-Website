@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<!-- Pagina die panden weergeeft -->
+<h:head>
+	<link rel="shortcut icon" href="#{resource['images/favicon.jpg']}" />
+	<!-- link naar css files -->
+	<h:outputStylesheet library="files/css" name="aanmakenaccount.css" />
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+	<h:outputStylesheet library = "files/css" name = "styles.css" /> 
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<title><ui:insert name="title">Open Project</ui:insert></title>
+
+
+</h:head>
+
+<h:body onload="#{imageBean.getFoto()}"
+	style="
+		overflow-x:hidden;
+		background:  linear-gradient(
+				      rgba(0, 0, 0, 0.3), 
+				      rgba(0, 0, 0, 0.3)
+				    ), url(#{resource['images/dubai-op.jpg']}) no-repeat center center fixed;  
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover">
+
+	<!-- navigatie bar boven elke pagina -->
+	<nav class=" navbar nav-bottom"> 
+	
+		<img class="nav-item navbar-picture" src="#{resource['images/logo.gif']}" />
+		<img class="nav-item nav-logo-text" src="#{resource['images/retailsonar.svg']}" />	
+		
+		<div class="topnav-right">
+			<div style="float:left; margin-top:5px">
+				<h:outputText class="navbar-text" id="welkom1" value="Welkom, #{userBean.getNaam()}"/>
+			</div>
+			
+			<div style="float:right;">
+					<h:form>
+						<h:commandButton class="btn-navbar" style="width:100px" action="#{userBean.triggerNieuwPand()}" value="nieuw pand"/>
+						<h:commandButton class="btn-navbar" style="width:100px" action="#{userBean.myAccount()}" value="my account"/>
+						<h:commandButton class="btn-navbar" action="#{userBean.logout()}" value="logout"/>
+					</h:form>
+			</div>	
+		</div>
+	</nav>
+
+	<div style="float:right">
+		<input id="zoekTekst" placeholder="Search..." disabled="true" type="search" onkeydown="zoekPand()"></input>
+		<br/>
+		<input id="checkAdres" type="checkbox" onchange="zoekPand()">Adres</input>
+		<br/>
+		<input id="checkProvincie" type="checkbox" onchange="zoekPand()">Provincie</input>
+		<br/>
+		<input id="checkStad" type="checkbox" onchange="zoekPand()">Stad</input>
+		<br/>
+		<input id="checkPostcode" type="checkbox" onchange="zoekPand()">Postcode</input>
+		<br/>
+		<input id="checkLand" type="checkbox" onchange="zoekPand()">Land</input>
+	</div>
+
+	<!-- datatable met alle panden in  -->
+	<div class="container">
+		<h:form id="my-form">
+			<!-- alles dat in de db staat weergeven in een tabel -->
+			<h:dataTable id="dataTable" class="table dataTable"
+				rowClasses="panden" value="#{pandBean.getWinkelPanden()}" var="pand"
+				styleClass="allepanden"
+				cellspacing="0"
+				cellpadding="0"
+				border="0"
+				columnClasses="foto,straat,postcode,stad,provincie,land">
+
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText class="text-center" value="foto" />
+					</f:facet>
+
+
+					<p:graphicImage style="height:140px; " alt="image"
+						value="#{imageBean.returnImage()}" cache="false">
+						<f:param id="image_id" name="image_id" value="#{pand.id}" />
+					</p:graphicImage>
+
+				</h:column>
+
+				<h:column>
+					<f:facet id="facet" name="header">
+						<h:outputText id="address" value="straat" />
+					</f:facet>
+
+					<h:outputText class="adres" style="color:white"
+						value="#{pand.straat}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="postcode" />
+					</f:facet>
+					<h:outputText class="postcode" style="color:white"
+						value="#{pand.postcode}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="stad" />
+					</f:facet>
+					<h:outputText class="stad" style="color:white" value="#{pand.stad}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="provincie" />
+					</f:facet>
+					<h:outputText class="provincie" style="color:white"
+						value="#{pand.provincie}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="land" />
+					</f:facet>
+					<h:outputText class="land" style="color:white" value="#{pand.land}" />
+				</h:column>
+
+				<h:column>
+					<input type="button" style="border: none; background: none;"
+						class="material-icons" id="${component.clientId}" value="place" />
+				</h:column>
+				<h:column>
+					<h:commandButton onclick="return confirm('Weet u zeker dat u het pand wil verwijderen?')"
+						style="border:none; background:none;"
+						action="#{pandBean.deletePand(pand)}" class="material-icons"
+						value="delete" />
+				</h:column>
+
+
+
+
+
+			</h:dataTable>
+		</h:form>
+	</div>
+	<div style="display: none;" class="container">
+		<h:form>
+			<!-- alles dat in de db staat weergeven in een tabel -->
+			<h:dataTable id="dataTable" class="table dataTable"
+				value="#{pandBean.getWinkelPanden()}" var="pand">
+
+
+				<h:column>
+					<div class="completeAdres">
+						<h:inputHidden
+							value="#{pand.straat}, #{pand.postcode}, #{pand.stad}, #{pand.provincie}, #{pand.land}"></h:inputHidden>
+					</div>
+				</h:column>
+
+			</h:dataTable>
+		</h:form>
+	</div>
+
+	<div class="custom-center map" id="map"></div>
+
+
+
+	<h:outputScript library="files/js" name="custom-openProject-js.js" />
+
+	<script
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRZNaT7fSLOt4IaEhRg8J3-4JlmQx7x0M&amp;libraries=geometry&amp;callback=initMap">
+</script>
+
+
+</h:body>
+
+</html>

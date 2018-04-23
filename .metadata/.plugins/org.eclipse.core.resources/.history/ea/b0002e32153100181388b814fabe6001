@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+      
+<h:head>
+  <link rel="shortcut icon" href="#{resource['images/favicon.jpg']}" />
+	<link rel="stylesheet" href="#{resource['files/css/bootstrap.min.css']}" />
+	<link rel="stylesheet" href="#{resource['files/css/styles.css']}" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/css/bootstrap.min.css" />
+  	
+  	<!-- de iconen vertalen -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+	
+  	<title>
+    	<ui:insert name="title">Admin menu</ui:insert>
+  	</title>
+</h:head>
+
+
+<!-- Lees de variabele in de link -->
+	<f:metadata>
+		<f:viewParam name="pand" value="#{TemplatesBean.template.id}"/>
+		<f:viewAction action="#{templatesBean.getTemplateById()}" />
+	</f:metadata>
+
+<h:body
+	style="background: url(#{resource['images/dubai.jpg']}) no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover">
+
+	<!-- navigatiebar boven elke pagina -->
+	<nav id="nav-main" class="nav-bottom navbar navbar-expand-lg navbar-light bg-white">
+			
+		  		<img src="#{resource['images/logo.gif']}" class="helper" style="margin-bottom:5px;margin-right:10px;width:30px"/>
+		  	<div class="navbar-header">
+				<a class="navbar-brand" style="color:#EE3251" href="https://retailsonar.com/" target="_blank">RetailSonar</a>
+			</div>
+			<ul class="navbar-nav ml-auto">
+			
+			<!-- knop annuleer, rechts op de pagina -->
+			<h:form>
+				<a class="nav-link" href="startNieuw.xhtml">Terug</a>
+			</h:form>
+			</ul>	
+	</nav>
+
+
+<!-- rest van de pagina: checkboxes die dan een 1 of een 0 zullen genereren voor de templates waarden -->
+<!-- nu doen met een tabel, later doen met iets anders (mooier) -->
+<!-- de update button zal ook nog niet werken, vragen aan aaron hoe hij de update user button heeft gedaan. -->
+<!-- de tabel -->
+		
+		
+		<div class="container">
+			<h:form id="my-form">
+				<!-- alles dat in de db staat weergeven in een tabel -->
+			<h:dataTable id="dataTable" class="table dataTable" value="#{templatesBean.getTemplateById()}" var="template">
+				
+				
+				<h:column>
+					<f:facet id="facet" name="header">
+						<h:outputText class="text-center" style="color:white;" id="lengtevoorgevel" value="lengte voorgevel" />
+					</f:facet>
+					<h:outputText style="color:white" id="lengtevoorgeveltxt" value="#{template.lengtevoorgevel}"/>
+					<br/>
+					<input type="checkbox" value="1" id="checkbox1" name="checkbox1"/>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:outputText class="text-center" style="color:white;" id="oppervlakte" value="oppervlakte" />
+					</f:facet>
+					<h:outputText style="color:white" class="login_user" value="#{template.oppervlakte}"/>
+					<br/>
+					<input type="checkbox" value="1" />
+				</h:column>			
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText class="text-center" style="color:white;" id="parking" value="parking" />
+					</f:facet>
+					<h:outputText style="color:white" class="login_user" value="#{template.parking}"/>
+					<br/>
+					<input type="checkbox" value="1"/>
+				</h:column>						
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText class="text-center" style="color:white;" id="commercieleActiviteit" value="commercieleActiviteit" />
+					</f:facet>
+					<h:outputText style="color:white" class="login_user" value="#{template.commercieleActiviteit}"/>
+					<br/>
+					<input type="checkbox" value="1"/>
+				</h:column>					
+				
+				<h:column>
+					<f:facet name="header">
+						<h:outputText class="text-center" style="color:white;" id="publiekTransport" value="publiekTransport" />
+					</f:facet>
+					<h:outputText style="color:white" class="login_user" value="#{template.publiekTransport}"/>
+					<br/>
+					<input type="checkbox" value="1"/>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:outputText class="text-center" style="color:white;" id="education" value="education" />
+					</f:facet>
+					<h:outputText style="color:white" class="login_user" value="#{template.education}"/>
+					<br/>
+					<input type="checkbox" value="1"/>
+				</h:column>	
+				
+				</h:dataTable>
+			</h:form>
+			
+		</div>
+
+		<input type="checkbox" name="ckbx1" value="true" />
+		
+		<h:outputText style="color:white" class="login_user" value="de tabel zullen we hierna maken"/>
+	<!-- opdelen in 2 gelijke verticale delen -->	
+		<div class="container">
+		<div style="width:100%;">
+		
+		<div style="float:left; width:50%">
+		<br/>
+	<!-- rechterdeel -->
+			<h:form id="my-form5">
+				<!-- alles dat in de db staat weergeven in een tabel -->
+			<h:dataTable id="dataTable" class="table dataTable" value="#{templatesBean.getNamen()}" var="parameter" style="widt:25px;">
+				
+				
+				<h:column>
+					<h:outputText style="color:white" value="#{parameter}"/>
+				</h:column>
+				
+				
+			</h:dataTable>
+			</h:form>
+		<br/>
+	<!-- linkerdeel -->
+		</div>
+		<div style="float:right; width:50%">
+		<br/>
+				<!-- TABEL VAN CHECKBOXES KOMT IER  -->
+				<h:form id="my-form6">
+				<!-- alles dat in de db staat weergeven in een tabel -->
+			<h:dataTable id="dataTable" class="table dataTable" value="#{templatesBean.getNamen()}" var="parameter" style="widt:25px;">
+												<!-- methode nog te veranderen -->
+				
+				<h:column>
+					<input type="checkbox" value="1" id="custom7" checked="checked" />
+					<input type="hidden" value="1" id="hdncustom7" name="custom7" />
+				</h:column>
+				
+				
+			</h:dataTable>
+			</h:form>
+
+		<br/>
+		
+		</div>
+
+		</div>
+
+
+		</div>
+		
+		
+		
+		
+</h:body>		
+</html>
+
+

@@ -1,0 +1,268 @@
+/*quasi zelfde als aanmakenaccount.css, maar niet scrollable*/
+/* html en body */
+html, body {
+	overflow: hidden;
+	margin: 0;
+}
+
+/* design navigatiebar */
+.navbar {
+	background-color: white;
+	overflow: hidden;
+	width: 100%;
+	/* volledige breedte van het scherm */
+	margin: 0 -9999rem;
+	/* add back negative margin value */
+	padding: 0.25rem 9999rem;
+	margin-top: 0px;
+	/* shadow onder navbar */
+	-webkit-box-shadow: 8px 8px 6px -6px #999;
+	-moz-box-shadow: 8px 8px 6px -6px #999;
+	box-shadow: 8px 8px 6px -6px #999;
+}
+
+/* onder navbar wat plaats laten */
+.nav-bottom {
+	margin-bottom: 20px;
+}
+
+.topnav-left {
+	float: left;
+	margin-top: 5px;
+}
+
+.topnav-right {
+	float: right;
+	margin-top: 5px;
+}
+
+/* standaard item / link */
+.nav-item {
+	margin-top: -5px;
+	margin-bottom: -5px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	padding-right: 5px;
+	padding-left: 5px;
+	vertical-align: middle;
+	max-width: 100px;
+}
+
+.nav-link {
+	float: left;
+	text-align: center;
+	text-decoration: none;
+	font-size: 17px;
+}
+
+nav:form {
+	text-align: right;
+	float: right;
+	font-size: 17px;
+}
+
+nav:commandButton {
+	text-align: right;
+	float: right;
+	font-size: 17px;
+}
+
+}
+/* retailsonar logo */
+.nav-logo-text {
+	width: 100px;
+}
+
+/*navbar logo gif*/
+.navbar-picture {
+	width: 25px;
+}
+
+/* error pages */
+.box {
+	padding-top: 300px;
+	width: 2000px;
+	border: 3px solid white;
+	padding: 15px;
+	margin: 15px;
+	border-radius: 15px;
+	font-size: 14px;
+	color: #eb5862;
+}
+
+.center-shift {
+	top: 100px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+h1 {
+	font-size: 10px;
+	color: #eb5862;
+}
+
+/* indeling pagina */
+.column-2 {
+	float: left;
+	width: 50%;
+}
+
+.column-3 {
+	float: left;
+	width: 33.33%
+}
+
+.column-right {
+	float: right;
+	width: 33.33%
+}
+
+/*enige element horizontaal*/
+.single-element {
+	display: block;
+}
+
+.vertical-center {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.vertical-center-full-page {
+	position: absolute;
+	top: 100px;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+/*	button */
+.btn {
+	font-family: "Nunito", -apple-system, system-ui, BlinkMacSystemFont,
+		"Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	font-weight: 700;
+}
+
+.btn-white {
+	color: white;
+	background-color: transparent;
+	border-color: white;
+	border-width: medium;
+	border-style: solid;
+}
+
+.btn-white:hover {
+	background-color: white;
+	color: red;
+	transition: all 0.2s ease-in-out;
+}
+
+.btn-vert-space {
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+
+.btn-200 {
+	height: 50px;
+	width: 200px;
+}
+
+.btn-navbar {
+	height: 30px;
+	width: 70px;
+	font-size: 15px;
+	background-color: #FF2645;
+	color: white;
+	border: 2px solid #FF2645;
+	border-radius: 5px;
+	margin-right: 5px;
+}
+
+.btn-navbar:hover {
+	background-color: white;
+	color: black;
+	border: 2px solid #FF2645;
+}
+
+.navbar-text {
+	font-size: 15px;
+	margin-right: 10px;
+}
+
+/*hover met pijl voor logout*/
+.control-label {
+	font-size: 20px;
+	font-family: "Nunito", -apple-system, system-ui, BlinkMacSystemFont,
+		"Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	color: white;
+}
+
+.title {
+	font-size: 35px;
+	font-family: "Nunito", -apple-system, system-ui, BlinkMacSystemFont,
+		"Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	color: white;
+}
+
+.form-group {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.form-control {
+	width: 20%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	margin-top: 20px;
+}
+
+/*hover met pijl voor logout*/
+
+/*afbeeldingen*/
+.logo-icon {
+	width: 100px;
+}
+
+/*table*/
+table.users {
+	width: 70%;
+	border-collapse: collapse;
+	/*om de cellspacing makkelijk te kunnen beheren */
+	margin: 0 auto;
+}
+
+/*hierin gebeurt het meeste van de tabel opmaak*/
+/*th is de bovendste rij, td zijn de gewone waarden*/
+table.users th, table.users td {
+	padding: 5px;
+	text-align: center;
+	font-family: "Nunito", -apple-system, system-ui, BlinkMacSystemFont,
+		"Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+	border: 1px solid #FFF;
+	white-space: nowrap;
+}
+
+table.users th {
+	border-bottom: 5px solid white;
+	color: white;
+}
+
+.paginacentraal {
+	width: 100px;
+	height: 100px;
+	background-color: red;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+}

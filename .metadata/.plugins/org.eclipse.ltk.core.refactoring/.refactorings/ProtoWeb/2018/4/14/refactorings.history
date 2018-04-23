@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;ProtoWeb/WebContent/overlays/shopareaappreciation.xhtml&apos; to &apos;shopareaappreciation_overlay.xhtml&apos;" description="Rename resource &apos;shopareaappreciation.xhtml&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="WebContent/overlays/shopareaappreciation.xhtml" name="shopareaappreciation_overlay.xhtml" stamp="1523039597127" updateReferences="true"/>
+</session>

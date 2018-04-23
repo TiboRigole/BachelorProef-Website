@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="ProtoEAR">
+        <wb-resource deploy-path="/" source-path="/EarContent" tag="defaultRootSource"/>
+        <dependent-module archiveName="ProtoEJBClient.jar" deploy-path="/lib" handle="module:/resource/ProtoEJBClient/ProtoEJBClient">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ProtoJPA.jar" deploy-path="/lib" handle="module:/resource/ProtoJPA/ProtoJPA">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ProtoREST.war" deploy-path="/" handle="module:/resource/ProtoREST/ProtoREST">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ProtoEJB.jar" deploy-path="/" handle="module:/resource/ProtoEJB/ProtoEJB">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ProtoWeb.war" deploy-path="/" handle="module:/resource/ProtoWeb/ProtoWeb">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+    </wb-module>
+</project-modules>

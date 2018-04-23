@@ -1,0 +1,165 @@
+
+<!-- DEZE PAGINA IS OVERBODIG, VERHUISD NAAR ADMIN SCHERM -->
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+<link rel="shortcut icon" href="#{resource['images/favicon.jpg']}" />
+	<meta charset="utf-8" />
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta http-equiv="x-ua-compatible" content="ie=edge" />
+	<!-- link naar css files -->
+	<link rel="stylesheet" href="#{resource['files/css/bootstrap.min.css']}" />
+	<link rel="stylesheet" href="#{resource['files/css/styles.css']}"/> 
+	
+	  <title>
+    <ui:insert name="title">Create User</ui:insert>
+  </title>
+</h:head>
+
+<h:body>
+<nav id="nav-main" class="nav-bottom navbar navbar-expand-lg navbar-light bg-white">
+		
+	  		<img src="#{resource['images/logo.gif']}" class="helper" style="margin-bottom:5px;margin-right:10px;width:30px"/>
+	  	<div class="navbar-header">
+			<a class="navbar-brand" style="color:#EE3251" href="https://retailsonar.com/">RetailSonar</a>
+		</div>
+		<ul class="navbar-nav ml-auto">
+		
+		<h:form>
+			<a class="nav-link" href="index.xhtml">Annuleer</a>
+		</h:form>
+		</ul>	
+</nav> 
+
+<section id="cover" class="align-items-center">
+	<div id="cover-caption">
+		<div class="container">
+			<div class="col-sm-10 offset-sm-1">
+				
+		<img src="#{resource['images/logo.gif']}" class="bottom-space logo-icon"/>			
+	
+<div class="container">
+				
+<h:form class="form-group">
+
+	
+			<fieldset>
+				<!-- Address form -->
+
+				<h2 style="color: white">Aanmaken account</h2>
+
+
+				
+				<div class="form-group">
+					<label class="control-label" >Naam *</label>
+					<div class="controls">
+						<h:inputText required="true" id="name" name="name" type="text" placeholder="name"
+							class="form-control" value="#{userBean.person.name}" requiredMessage="Gelieve naam in te geven"/>
+						<h:message for="name" style="color:red;" />
+					</div>
+				</div>
+
+				
+				<div class="form-group">
+					<label class="control-label">Username *</label>
+					<div class="controls">
+						<h:inputText required="true" id="login" name="login" type="text" placeholder="login"
+							class="form-control" value="#{userBean.person.login}" requiredMessage="Gelieve username in te geven"/>
+						<h:message for="login" style="color:red;" />
+						<p class="help-block" />
+					</div>
+				</div>
+				
+				
+				<div class="form-group">
+					<label class="control-label" >Paswoord *</label>
+					<div class="controls">
+						<h:inputSecret required="true" id="hPassword" name="hPassword" type="text"
+							placeholder="hPassword" class="form-control" value="#{userBean.person.hPassword}" requiredMessage="Gelieve paswoord in te geven"/>
+						<h:message for="hPassword" style="color:red;" />
+						<p class="help-block"></p>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="control-label" >Confirm Paswoord *</label>
+					<div class="controls">
+						<h:inputSecret required="true" id="confirmPassword" name="hPassword" type="text"
+							placeholder="hPassword" class="form-control" value="#{userBean.confirmPass}" requiredMessage="Gelieve paswoord in te geven"/>
+						<h:message for="confirmPassword" style="color:red;"/>
+						<p class="help-block"></p>
+					</div>
+				</div>
+				
+				
+				
+				
+				<div class="form-group">
+					<label class="control-label" >Winkel *</label>
+					<div class="controls">
+						<h:selectOneMenu id="winkel" name="winkel" class="input-xlarge" value="#{userBean.person.winkel}" required="true" requiredMessage="Gelieve winkel in te geven">
+								<f:selectItem itemValue="" itemLabel="(selecteer een winkel)"/>
+								<f:selectItem itemValue="Colruyt" itemLabel="Colruyt"/>
+								<f:selectItem itemValue="Delhaize" itemLabel="Delhaize"/>
+								<f:selectItem itemValue="Carrefour" itemLabel="Carrefour"/>
+								<f:selectItem itemValue="Niet Van Toepassing" itemLabel="Niet Van Toepassing"/>
+						</h:selectOneMenu>
+						<h:message for="winkel" style="color:red;"/>
+						<p class="help-block"></p>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="control-label" >Adres</label>
+					<div class="controls">
+						<h:inputText id="address" name="address" type="address"
+							placeholder="address" class="form-control" value="#{userBean.person.address}"/>
+						<p class="help-block"></p>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="control-label" >Group *</label>
+					<div class="controls">
+						<h:selectOneMenu id="group" name="group" class="input-xlarge" value="#{userBean.person.group}" required="true" requiredMessage="Gelieve functie in te geven">
+								<f:selectItem itemValue="" itemLabel="(selecteer een functie)"/>
+								<f:selectItem itemValue="Regiomanager" itemLabel="Regiomanager"/>
+								<f:selectItem itemValue="Expansionmanager" itemLabel="Expansionmanager"/>
+								<f:selectItem itemValue="Admin" itemLabel="Admin"/>
+						</h:selectOneMenu>
+						
+						
+					</div>
+					<h:message for="group" style="color:red;"/>
+						
+				</div>
+				<div>
+				
+					<h:commandButton value="Maak account aan" action="#{userBean.addNewUser}" class="btn-submit pull-left"/>
+					
+				</div>
+				
+
+			</fieldset>
+		</h:form>
+				</div>		
+			</div>
+
+		</div>
+	</div>
+		
+				
+</section>
+
+</h:body>
+
+
+</html>

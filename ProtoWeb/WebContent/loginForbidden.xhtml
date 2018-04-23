@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+	<link rel="shortcut icon" href="#{resource['images/favicon.jpg']}" />
+	<h:outputStylesheet library="files/css" name="algemeen.css" />
+	<h:outputStylesheet library="files/css" name="onthaal.css" />
+	<title><ui:insert name="title">Niet beschikbaar</ui:insert></title>
+</h:head>
+
+<nav class=" navbar nav-bottom"> <img
+	class="nav-item navbar-picture" src="#{resource['images/logo.gif']}" />
+<img class="nav-item nav-logo-text"
+	src="#{resource['images/retailsonar.svg']}" /> </nav>
+
+<h:body onload="#{imageBean.foto()}"
+	style="background:  linear-gradient(
+				      rgba(0, 0, 0, 0.45), 
+				      rgba(0, 0, 0, 0.45)
+				    ), url(#{resource['images/inlog-background.jpg']}) no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover">
+	<center>
+		<br /> <br /> <br /> <br /> <br />
+
+		<div class="box">
+			<div class="content">
+				<h1 style="font-size: 25px">Dit account beschikt niet over de
+					nodige rechten voor deze pagina.</h1>
+			</div>
+		</div>
+
+
+		<form action="#{request.contextPath}/index.faces">
+			<input class="btn-200 btn-vert-space btn-white single-element"
+				type="submit" value="Terug" />
+		</form>
+
+
+
+	</center>
+</h:body>
+
+</html>
+

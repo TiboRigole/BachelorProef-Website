@@ -1,0 +1,217 @@
+package ejb;
+
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.ejb.EJB;
+import javax.ejb.SessionContext;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+import entities.Person;
+import entities.Person_Group;
+import entities.Pand;
+
+/**
+ * Session Bean implementation class UserManagementEJB
+ */
+@Stateless
+public class UserManagementEJB implements UserManagementEJBLocal {
+	
+	@PersistenceContext(unitName="Project2017-G4")
+	private EntityManager em;
+	
+	@Resource
+	private SessionContext ctx;
+	
+	@EJB
+	private UserManagementEJBLocal userEJB;
+	
+	
+    /**
+     * Default constructor. 
+     */
+    public UserManagementEJB() {
+        // TODO Auto-generated constructor stub
+    }
+    
+    /**
+     * voegt een persoon toe aan de databank
+     */
+    public void addUser(Person person){
+    	
+    	try {
+			person.sethPassword(Base64.getEncoder().encodeToString(MessageDigest.getInstance("SHA-256").digest(person.gethPassword().getBytes(StandardCharsets.UTF_8))));
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	
+    	System.out.println("aanmaken van " + person.getLogin());
+    	em.persist(person);
+    	
+    }
+    
+    /**
+     * stelt het wachtwoord in van de huidige ingelogde persoon op zijn login
+     */
+    public void resetPassword(Person person){
+    	try {
+    		person.sethPassword(Base64.getEncoder().encodeToString(MessageDigest.getInstance("SHA-256").digest(person.getLogin().getBytes(StandardCharsets.UTF_8))));
+        } catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	em.merge(person);
+    }
+	
+    /**
+     * vindt de persoon aan de hand van zijn login naam
+     */
+	@Override
+	public Person findPerson(String login) {
+		// Queries komen in EJB
+		
+		Query q = em.createQuery("SELECT p FROM Person p WHERE p.login = :login");
+		q.setParameter("login", login);
+		List<Person> persons=new ArrayList<>();
+		
+		persons = q.getResultList();
+		
+		if(persons.size() == 1){
+			return persons.get(0);
+		}
+		else return null;
+	}
+	
+	/**
+	 * vindt de persoon aan de hand van de id
+	 */
+	@Override
+	public Person findPersonById(long id){
+		Query q = em.createQuery("SELECT p FROM Person p WHERE p.id = :id");
+		q.setParameter("id", id);
+		
+		List<Person> persons = q.getResultList();
+		
+		if(persons.size() == 1)
+			return persons.get(0);
+		else return null;
+	}
+	
+	/**
+	 * return de naam van de huidige ingelogde persoon
+	 */
+	@Override
+	public String getWinkel(){
+		String pName= ctx.getCallerPrincipal().getName();
+		Person p=userEJB.findPerson(pName);
+		String w=p.getWinkel();
+		return w;
+	}
+	
+	/**
+	 * geeft de naam weer van de huidige gebruiker onder de vorm van een string
+	 */
+	@Override
+	public String getNaam(){
+		String pName= ctx.getCallerPrincipal().getName();
+		Person p=userEJB.findPerson(pName);
+		String w=p.getName();
+		return w;
+	}
+	
+	/**
+	 * genereert een lijst van alle gebruikers in de databank
+	 */
+	public List<Person> findAllUsers(){
+		
+		Query q = em.createQuery("SELECT p FROM Person p ");
+		List<Person> users = q.getResultList();
+		return users;
+	};
+
+	/**
+	 * past de huidge gebruiker aan in de databank
+	 */
+	public void updateUser(Person person){
+		em.merge(person);
+	}
+
+	/**
+	 * returnt de id van de huidige ingelogde persoon
+	 */
+	@Override
+	public String getId() {
+		String pName = ctx.getCallerPrincipal().getName();
+		Person p = userEJB.findPerson(pName);
+		String id = p.getId()+"";
+		return id;
+		
+	}
+
+	/**
+	 * returnt het adres van de huidige ingelogde persoon
+	 */
+	@Override
+	public String getAdres() {
+		String pName= ctx.getCallerPrincipal().getName();
+		Person p=userEJB.findPerson(pName);
+		String w=p.getAddress();
+		return w;
+	}
+
+	/**
+	 * return te login naam van de huidige ingelogde persoon
+	 */
+	@Override
+	public String getLogin() {
+		String pName= ctx.getCallerPrincipal().getName();
+		Person p=userEJB.findPerson(pName);
+		String w=p.getLogin();
+		return w;
+	}
+	
+	/**
+	 * zet in UserEJB de globale variabele Persoon p op de persoon die op dit moment ingelogd is 
+	 */
+	@Override
+	public Person findSelf() {
+		String pName= ctx.getCallerPrincipal().getName();
+		Person p=userEJB.findPerson(pName);
+		return p;
+	}
+
+	/**
+	 * vergelijkt als de parameter codeerPaswoord overeenstemt met het huidige gecodeerde paswoord
+	 * @param codeerPaswoord
+	 */
+	@Override
+	public boolean comparePaswoord(String codeerPaswoord) {
+		String pName= ctx.getCallerPrincipal().getName();
+		Person p=userEJB.findPerson(pName);
+		String huidigPaswoord = p.gethPassword();
+		return huidigPaswoord.equals(codeerPaswoord);
+	}
+
+	/**
+	 * slaat het geencrypteerde nieuwe paswoord in in de databank, bij de juiste huidige persoon
+	 * @param nieuwPaswoord : het geencrypteerde nieuwe wachtwoord
+	 */
+	@Override
+	public void sethPassWord(String nieuwPaswoord) {
+		String pName= ctx.getCallerPrincipal().getName();
+		Person p=userEJB.findPerson(pName);
+		p.sethPassword(nieuwPaswoord);
+		em.merge(p);
+		
+	}
+}

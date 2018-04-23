@@ -1,0 +1,18 @@
+package ejb;
+
+import java.util.List;
+
+import javax.ejb.Local;
+
+import entities.Templates;
+
+@Local
+public interface TemplatesManagementEJBLocal {
+
+	Templates findTemplateById(long idQuery);
+
+	public List<String> getAlleParameterNamen();
+
+	//void toggleLengteVoorgevel(long idQuery);
+}
+

@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui">
+ 
+<h:head>
+    <link rel="shortcut icon" href="#{resource['images/favicon.jpg']}" />
+    <!-- link naar css files -->
+    <title><ui:insert name="title">Nieuw Project</ui:insert></title>
+ 
+    <h:outputStylesheet library="files/css" name="aanmakenaccount.css" />
+</h:head>
+ 
+ 
+ 
+<h:body
+    style="background:  linear-gradient(
+                      rgba(0, 0, 0, 0.3), 
+                      rgba(0, 0, 0, 0.3)
+                    ), url(#{resource['images/dubai-op.jpg']}) no-repeat center center fixed;  
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover">
+ 
+    <nav class=" navbar nav-bottom"> <img
+        class="nav-item navbar-picture" src="#{resource['images/logo.gif']}" />
+    <img class="nav-item nav-logo-text"
+        src="#{resource['images/retailsonar.svg']}" />
+ 
+    <div class="topnav-right">
+        <div style="float: left; margin-top: 5px">
+            <h:outputText class="navbar-text" id="welkom"
+                value="Welkom, #{userBean.getNaam()}" />
+        </div>
+ 
+        <div style="float: right;">
+            <h:form>
+                <h:commandButton class="btn-navbar"
+                    action="#{userBean.triggerHome()}" value="terug" />
+                    <h:commandButton class="btn-navbar" action="#{userBean.logout()}" value="logout"/>
+            </h:form>
+        </div>
+    </div>
+ 
+    </nav>
+    <!-- einde van de nav bar  -->
+ 
+    <center class="vertical-center">
+ 
+        <!-- form om gegevens in te vullen -->
+ 
+ 
+        <h:form onkeypress="if (event.keyCode == 13) {  return false; }" id="my-form" class="form-group">
+ 
+ 
+            <fieldset autofocus="">
+                <!-- Address form -->
+ 
+                <h2 class="title">Nieuw pand toevoegen</h2>
+                 
+                <h:messages class="error-msg" globalOnly="true" style="color: #FF0000" />
+             
+     
+                <!-- address input-->
+                <div class="form-group">
+                    <label class="control-label">Adres</label>
+                    <div class="controls">
+                        <h:inputText autofocus="autofocus" required="true" id="straat"
+                            name="straat" type="text" placeholder="straat"
+                            class="form-control" value="#{pandBean.pand.straat}"
+                            requiredMessage="Gelieve adres in te geven" />
+                    </div>
+                </div>
+ 
+                <!-- city input-->
+                <div class="form-group">
+                    <label class="control-label" style="color: white">Stad /
+                        Gemeente</label>
+                    <div class="controls">
+                        <h:inputText id="stad" required="true" name="stad" type="text"
+                            placeholder="stad" class="form-control"
+                            value="#{pandBean.pand.stad}" requiredMessage="Gelieve gemeente in te geven"/>
+                        <p class="help-block" />
+                    </div>
+                </div>
+                <!-- region input-->
+                <div class="form-group">
+                    <label class="control-label" style="color: white">Provincie
+                        / Regio</label>
+                    <div class="controls">
+                        <h:inputText id="regio" required="true" name="regio" type="text"
+                            placeholder="staat / provincie / regio" class="form-control"
+                            value="#{pandBean.pand.provincie}" requiredMessage="Gelieve provincie in te geven"/>
+                        <p class="help-block"></p>
+                    </div>
+                </div>
+                <!-- postal-code input-->
+                <div class="form-group">
+                    <label class="control-label" style="color: white">Postcode</label>
+                    <div class="controls">
+                        <h:inputText id="postcode" required="true" name="postcode"
+                            type="text" placeholder="zip of postcode" class="form-control"
+                            value="#{pandBean.pand.postcode}" requiredMessage="Gelieve postcode in te geven"/>
+                        <p class="help-block"></p>
+                    </div>
+                </div>
+                <!-- country select -->
+                <div class="form-group">
+                    <label class="control-label" style="color: white">Land</label>
+                    <div class="controls">
+                        <h:selectOneMenu id="land" name="land" class="form-control"
+                            value="#{pandBean.pand.land}">
+                            <!-- 
+                            <f:selectItem itemValue="" itemLabel="(selecteer een land)"/>
+                             -->
+                            <f:selectItem itemValue="België" itemLabel="België" />
+                            <f:selectItem itemValue="Luxemburg" itemLabel="Luxemburg" />
+                            <f:selectItem itemValue="Nederland" itemLabel="Nederland" />
+                        </h:selectOneMenu>
+                    </div>
+                </div>
+ 
+ 
+                <!-- Deze waarden worden gegenereerd maar worden op een of andere manier niet doorgestuurd -->
+                <h:inputHidden id="lat" value="#{pandBean.lat}" />
+                <h:inputHidden id="long" value="#{pandBean.longi}" />
+ 
+                <div>
+ 
+                    <button class="btn-200 btn-vert-space btn-white single-element"
+                        type="button" onclick="geocode()">Bevestig</button>
+                    <h:commandButton id="submit" style="display: none;"
+                        value="Maak pand" action="#{pandBean.createPand}"
+                        class="btn-200 btn-vert-space btn-white single-element">
+                        <f:setPropertyActionListener target="#{pandBean.pand.winkel}"
+                            value="#{userBean.getUserWinkel()}" />
+ 
+                    </h:commandButton>
+                </div>
+                 
+                 
+ 
+            </fieldset>
+        </h:form>
+ 
+ 
+ 
+ 
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+ 
+        <script>
+var submit;
+ 
+function geocode(){
+     
+     
+    var straat=document.getElementById("my-form:straat").value;
+    var stad=document.getElementById("my-form:stad").value;
+    var staat=document.getElementById("my-form:regio").value;
+    var postcode=document.getElementById("my-form:postcode").value;
+    var land=document.getElementById("my-form:land").value;
+     
+    var adres= straat.concat(" "+stad);
+    adres= adres.concat(" "+postcode);
+    adres= adres.concat(" "+staat);
+    adres= adres.concat(" "+land);
+     
+    console.log(adres);
+     
+    axios.get('https://maps.googleapis.com/maps/api/geocode/json',{
+        params:{
+            address:adres,
+            key:'AIzaSyBRZNaT7fSLOt4IaEhRg8J3-4JlmQx7x0M'
+        }
+    })
+    .then(function(response){
+        // log full response
+        console.log(response);
+        if(response.data.status==="OK"){         
+        // Geometry
+        var lat = response.data.results[0].geometry.location.lat;
+        var lng = response.data.results[0].geometry.location.lng;
+        var latInput=document.getElementById("my-form:lat");
+        latInput.value=lat;
+        var lngInput=document.getElementById("my-form:long");
+        lngInput.value=lng;
+        console.log(latInput);
+        console.log(lngInput);
+        
+        console.log(latInput.value);
+        console.log(lngInput.value);
+        }
+        submit=document.getElementById("my-form:submit");
+        submit.click();
+        
+    })
+    .catch(function(error){
+        console.log(error);
+    })
+     
+}
+</script>
+    </center>
+ 
+</h:body>
+ 
+ 
+ 
+</html>

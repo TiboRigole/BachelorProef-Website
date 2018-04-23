@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<link rel="shortcut icon" href="#{resource['images/favicon.jpg']}" />
+
+
+	<h:outputStylesheet library="files/css" name="algemeen.css" />
+	<title>Admin &ndash; Hoofdmenu</title>
+</h:head>
+
+
+<h:body
+	style="background:   url(#{resource['images/admin-background-op.jpg']}) no-repeat center center fixed;  
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover">
+
+
+	<!-- navigatiebar boven elke pagina -->
+	<nav class=" navbar nav-bottom"> <img
+		class="nav-item navbar-picture" src="#{resource['images/logo.gif']}" />
+	<img class="nav-item nav-logo-text"
+		src="#{resource['images/retailsonar.svg']}" />
+
+	<div class="topnav-right">
+		<div style="float: left; margin-top: 5px">
+			<h:outputText class="navbar-text" id="welkom"
+				value="Welkom, #{userBean.getNaam()}" />
+		</div>
+
+		<div style="float: right;">
+			<h:form>
+				<h:commandButton class="btn-navbar" action="#{userBean.logout()}"
+					value="logout" />
+			</h:form>
+		</div>
+	</div>
+	</nav>
+	<!-- navbar einde -->
+
+
+	<div>
+		<center class="vertical-center">
+
+			<h:form>
+				<h:commandButton
+					class="btn-200 btn-vert-space btn-white single-element"
+					action="#{userBean.triggerAddNewUser()}"
+					value="Nieuwe user toevoegen" />
+			</h:form>
+			<br />
+			<h:form>
+				<h:commandButton
+					class="btn-200 btn-vert-space btn-white single-element"
+					action="#{userBean.triggerAllUsers()}" value="Alle users bekijken" />
+			</h:form>
+			<br />
+			<h:form>
+				<h:commandButton
+					class="btn-200 btn-vert-space btn-white single-element"
+					action="#{userBean.triggerParameters()}"
+					value="Parameters veranderen" />
+			</h:form>
+		</center>
+	</div>
+
+
+
+</h:body>
+
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<!-- Pagina die panden weergeeft -->
+<h:head>
+
+	<link rel="shortcut icon" href="#{resource['images/favicon.jpg']}" />
+
+	<!-- icoontje bovenaan -->
+	<link rel="shortcut icon" href="#{resource['images/favicon.jpg']}" />
+
+	<!-- link naar css files -->
+	<h:outputStylesheet library="files/css" name="aanmakenaccount.css" />
+
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+	<title><ui:insert name="title">My Account</ui:insert></title>
+
+</h:head>
+
+<f:metadata>
+	<f:viewParam name="User" value="#{userBean.person.id}" />
+	<f:viewAction action="#{userBean.findUserById}" />
+</f:metadata>
+
+
+<h:body
+	style="background:   url(#{resource['images/eigengegevens-bw.jpg']}) no-repeat center center fixed;  
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover">
+
+
+	<nav class=" navbar nav-bottom"> <img
+		class="nav-item navbar-picture" src="#{resource['images/logo.gif']}" />
+	<img class="nav-item nav-logo-text"
+		src="#{resource['images/retailsonar.svg']}" />
+
+	<div class="topnav-right">
+		<div style="float: left; margin-top: 5px">
+			<h:outputText class="navbar-text" id="welkom"
+				value="Welkom, #{userBean.getNaam()}" />
+		</div>
+		<div style="float: right;">
+			<h:form>
+				<h:commandButton class="btn-navbar"
+					action="#{userBean.triggerHome()}" value="home" />
+				<h:commandButton class="btn-navbar" action="#{userBean.myAccount()}"
+					value="terug" />
+				<h:commandButton class="btn-navbar" action="#{userBean.logout()}"
+					value="logout" />
+			</h:form>
+		</div>
+	</div>
+	</nav>
+
+	<center class="vertical-center">
+
+		<h:form id="my-form" class="form-group">
+			<!-- NAME input -->
+			<div class="form-group">
+				<label class="control-label">Naam</label>
+				<div class="controls">
+					<h:inputText autofocus="autofocus" required="true" id="name"
+						name="name" type="text" placeholder="naam" class="form-control"
+						value="#{userBean.person.name}" />
+				</div>
+			</div>
+
+			<!-- LOGIN NAAM input -->
+			<div class="form-group">
+				<label class="control-label">Login</label>
+				<div class="controls">
+					<h:inputText autofocus="autofocus" required="true" name="login"
+						id="login" disabled="true" type="text" placeholder="login"
+						class="form-control" value="#{userBean.person.login}" />
+				</div>
+			</div>
+
+			<!-- FUNCTIE INPUT -->
+			<div class="form-group">
+				<label class="control-label">Functie</label>
+				<div class="controls">
+					<h:selectOneMenu id="functie" name="functie" class="form-control"
+						disabled="true" value="#{userBean.person.group}" required="true">
+						<f:selectItem itemValue="Regiomanager" itemLabel="RegioManager" />
+					</h:selectOneMenu>
+				</div>
+			</div>
+
+			<!-- WINKEL INPUT -->
+			<div class="form-group">
+				<label class="control-label">Winkel</label>
+				<div class="controls">
+					<h:inputText disabled="true" id="winkel" name="winkel" type="text"
+						placeholder="winkel" class="form-control"
+						value="#{userBean.person.winkel}" />
+				</div>
+			</div>
+
+			<!-- ADRES input -->
+			<div class="form-group">
+				<label class="control-label" style="color: white">Adres</label>
+				<div class="controls">
+					<h:inputText id="adres" name="adres" type="text"
+						placeholder="adres" class="adress form-control"
+						value="#{userBean.person.address}" />
+					<p class="help-block" style="color: white; font-size: 15px;">straat,
+						huisnummer, postcode, stad, Land</p>
+				</div>
+			</div>
+
+			<h:commandButton id="updateButton" value="Save"
+				action="#{userBean.regioUpdateSelf()}" class="btn-navbar" />
+		</h:form>
+
+	</center>
+
+</h:body>
+</html>

@@ -1,0 +1,416 @@
+/* html en body */
+/*scrollable*/
+
+html, body{
+	overflow-y:auto;
+	overflow-x:hidden;
+	margin: 0;
+	
+}
+
+/* design navigatiebar */
+	.navbar{
+		background-color:white;
+		overflow: hidden;
+		width: 100%;
+		
+		/* volledige breedte van het scherm */
+		margin: 0 -9999rem;		
+	  	/* add back negative margin value */
+	    padding: 0.25rem 9999rem;
+	    
+	    margin-top:0px;
+	    
+	    /* shadow onder navbar */
+		-webkit-box-shadow: 8px 8px 6px -6px #999 ;
+    	-moz-box-shadow: 8px 8px 6px -6px #999;
+    	box-shadow: 8px 8px 6px -6px #999;
+	}	
+	
+	/* onder navbar wat plaats laten */
+	.nav-bottom{
+		margin-bottom:20px;
+	}
+
+	
+	.topnav-right {
+  	float: right;
+  	margin-top:5px;
+	}
+	
+	
+	/* standaard item / link */
+	.nav-item  {
+		
+		margin-top:-5px;
+		margin-bottom:-5px;
+		padding-top:15px;
+		padding-bottom:15px;
+		padding-right:5px;
+		padding-left:5px;
+		vertical-align:middle;
+		max-width:100px;
+	}
+	
+	.nav-link{
+		float:left;
+		text-align:center;
+		text-decoration:none;
+		font-size:17px;
+	}
+	
+	nav:form{
+		text-align:right;
+		float:right;
+		font-size:17px;
+	}
+	
+	nav:commandButton{
+		text-align:right;
+		float:right;
+		font-size:17px;
+	}
+		
+	}
+	/* retailsonar logo */
+	.nav-logo-text{
+		width:100px;
+		
+	}
+	
+	
+	/*navbar logo gif*/
+	.navbar-picture{
+		width:25px;	
+	}
+	
+	
+/* indeling pagina */
+	.column-2{
+		float:left;
+		width:50%;
+	}	
+	.column-3{
+		float:left;
+		width:33.33%
+	}
+	
+	.column-right{
+		float:right;
+		width:33.33%
+	}
+	
+	/*enige element horizontaal*/
+	.single-element{
+	display:block;
+	}
+	
+	.vertical-center{
+	display: flex;
+  	flex-direction: column;
+ 	justify-content: center;
+	}
+	
+	.vertical-center-full-page{
+	position: absolute;
+    top:10px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+  	flex-direction: column;
+ 	justify-content: center;
+	}
+	
+/*	button */
+	.btn{
+	    font-family: "Nunito",-apple-system,system-ui,
+		    BlinkMacSystemFont,"Segoe UI",
+		    Roboto,"Helvetica Neue",Arial,sans-serif;
+		font-weight:700;
+		
+	}
+	.btn-white{
+		color:white;
+		background-color:transparent;
+		border-color:white;
+		border-width: medium;
+		border-style:solid;
+	}
+	.btn-white:hover{
+	background-color:white;
+	color:red;
+	transition: all 0.2s ease-in-out;
+	}
+	.btn-vert-space{
+		margin-top:50px;
+		margin-bottom:50px;
+	}
+	.btn-200{
+		height:50px;
+		width:200px;
+		
+	}
+	
+	.btn-navbar {
+		height:30px;
+		width:70px;
+		font-size: 15px;
+	    background-color: #FF2645;
+	    color: white;
+	    border: 2px solid  #FF2645;
+	    border-radius:5px;
+	    margin-right:5px;
+	}
+	
+	.btn-navbar:hover {
+	    background-color: white; 
+	    color: black; 
+	    border: 2px solid #FF2645;
+	}
+	
+	.navbar-text{
+		font-size: 15px;
+		margin-right:10px;
+	}
+	
+	/*hover met pijl voor logout*/
+	
+	.error-msg{
+	 		font-size: 25px;
+ 		font-family:"Nunito",-apple-system,system-ui,
+		    BlinkMacSystemFont,"Segoe UI",
+		    Roboto,"Helvetica Neue",Arial,sans-serif;
+			color:red;
+	}
+ 
+ 	.control-label{
+ 		font-size: 20px;
+ 		font-family:"Nunito",-apple-system,system-ui,
+		    BlinkMacSystemFont,"Segoe UI",
+		    Roboto,"Helvetica Neue",Arial,sans-serif;
+		color:white;
+ 	}
+	
+	.title{
+		font-size:35px;
+		font-family:"Nunito",-apple-system,system-ui,
+		    BlinkMacSystemFont,"Segoe UI",
+		    Roboto,"Helvetica Neue",Arial,sans-serif;
+		color:white;
+	}
+	
+	.form-group{
+		margin-top:20px;
+		margin-bottom:20px;
+
+	}
+
+	.form-control{
+	width: 20%;
+    padding: 12px 20px;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    margin-top: 20px;
+    }
+	
+	.errorMessage{
+	color:red;
+	font-family:"Nunito",-apple-system,system-ui,
+		    BlinkMacSystemFont,"Segoe UI",
+		    Roboto,"Helvetica Neue",Arial,sans-serif;
+	font-size:20px;
+	font-weight:bold;
+	}
+	
+	.warnMessage{	
+	color:red;
+	font-family:"Nunito",-apple-system,system-ui,
+		    BlinkMacSystemFont,"Segoe UI",
+		    Roboto,"Helvetica Neue",Arial,sans-serif;
+	font-size:20px;
+	font-weight:bold;
+	}
+	
+		
+	/*afbeeldingen*/
+		.logo-icon{
+			width:100px;
+		}
+	
+	/*table*/
+	table.users{
+		width: 70%;
+		border-collapse: collapse; /*om de cellspacing makkelijk te kunnen beheren */
+		margin: 0 auto;
+	}
+
+/*hierin gebeurt het meeste van de tabel opmaak*/
+/*th is de bovendste rij, td zijn de gewone waarden*/
+	table.users th,
+	table.users td {
+		padding: 5px;
+		text-align: center;
+		font-family:"Nunito",-apple-system,system-ui,
+			    BlinkMacSystemFont,"Segoe UI",
+			    Roboto,"Helvetica Neue",Arial,sans-serif;
+		border: 1px solid #FFF;
+		white-space: nowrap;
+	}
+	
+	table.users th {
+		border-bottom: 5px solid white;
+		color: white;
+	
+	}
+	
+	.parameterstable{
+		width: 50%;
+		border-collapse: collapse; /*om de cellspacing makkelijk te kunnen beheren */
+		margin: 0 auto;
+	}
+	
+	.parameterstable td, .parameterstable th {
+		padding: 8px;
+		text-align: center;
+		font-family:"Nunito",-apple-system,system-ui,
+			    BlinkMacSystemFont,"Segoe UI",
+			    Roboto,"Helvetica Neue",Arial,sans-serif;
+		border: 2px solid #FFF;
+		white-space: nowrap;
+	}
+	
+	.table-text{
+		color:white;
+		font-family:"Nunito",-apple-system,system-ui,
+			    BlinkMacSystemFont,"Segoe UI",
+			    Roboto,"Helvetica Neue",Arial,sans-serif;
+	}
+	
+	input {
+		outline: none;
+	}
+	
+	input[type=search] {
+		-webkit-appearance: textfield;
+		-webkit-box-sizing: content-box;
+		font-family: inherit;
+		font-size: 100%;
+	}
+	
+	input::-webkit-search-decoration,
+	input::-webkit-search-cancel-button {
+		display: none; 
+	}
+	input[type=search] {
+		background: #ededed url(https://static.tumblr.com/ftv85bp/MIXmud4tx/search-icon.png) no-repeat 9px center;
+		border: solid 1px #ccc;
+		padding: 9px 10px 9px 32px;
+		width: 55px;
+		
+		-webkit-border-radius: 10em;
+		-moz-border-radius: 10em;
+		border-radius: 10em;
+		
+		-webkit-transition: all .5s;
+		-moz-transition: all .5s;
+		transition: all .5s;
+	}
+	
+	input[type=search]:focus {
+		width: 130px;
+		background-color: #fff;
+		border-color: #66CC75;
+		
+		-webkit-box-shadow: 0 0 5px rgba(109,207,246,.5);
+		-moz-box-shadow: 0 0 5px rgba(109,207,246,.5);
+		box-shadow: 0 0 5px rgba(109,207,246,.5);
+	}
+
+
+	input:-moz-placeholder {
+		color: #999;
+	}
+	
+	input::-webkit-input-placeholder {
+		color: #999;
+	}
+	
+	.searchBar{
+		float: right;
+	
+	}
+	
+	table.allepanden{
+		width: 70%;
+		border-collapse: collapse; /*om de cellspacing makkelijk te kunnen beheren */
+		margin: 0 auto;
+	}
+	
+	
+	table.allepanden th,
+	table.allepanden td {
+		padding: 5px;
+		text-align: left;
+		font-family:"Nunito",-apple-system,system-ui,
+			    BlinkMacSystemFont,"Segoe UI",
+			    Roboto,"Helvetica Neue",Arial,sans-serif;
+		/*border: 1px solid #FFF;*/
+		white-space: nowrap;
+	}
+	
+	table.allepanden th {
+		border-bottom: 5px solid white;
+		color: white;
+	}
+	
+	table.allepanden tr {
+		padding: 5px;
+		text-align: left;
+		font-family:"Nunito",-apple-system,system-ui,
+			    BlinkMacSystemFont,"Segoe UI",
+			    Roboto,"Helvetica Neue",Arial,sans-serif;
+		border: 1px solid #FFF;	
+	}
+	
+	.table-condensed{
+		text-align : left;
+		border-left: 1px solid #FFF;
+		border-right: 1px solid #FFF;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	}

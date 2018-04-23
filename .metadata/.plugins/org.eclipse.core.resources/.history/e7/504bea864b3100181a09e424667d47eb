@@ -1,0 +1,87 @@
+package ejb;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.ejb.EJB;
+import javax.ejb.SessionContext;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import entities.Templates;
+
+@Stateless
+public class TemplatesManagementEJB implements TemplatesManagementEJBLocal {
+
+	@PersistenceContext(unitName="Project2017-G4")
+	private EntityManager em;
+	
+	@Resource
+	private SessionContext ctx;
+	
+	@EJB
+	private TemplatesManagementEJBLocal templatesEJB;
+	
+    /**
+     * Default constructor. 
+     */
+    public TemplatesManagementEJB() {
+        // TODO Auto-generated constructor stub
+    }
+	
+    
+    //hier volgen de andere methoden
+	public Templates findTemplateById(long id){
+		Query q = em.createQuery("SELECT p FROM Templates p WHERE p.idtemplates =:id");
+		q.setParameter("id", id);
+		List<Templates> templates = q.getResultList();
+		
+		if(templates.size() == 1)
+			return templates.get(0);
+		else return null;
+	};
+	
+	@Override
+	public List<String> getAlleParameterNamen(){
+		
+		StringBuilder queryString= new StringBuilder ();
+		queryString.append("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA='retailsonar'AND TABLE_NAME='templates';");
+		Query q=em.createNativeQuery(queryString.toString());
+		List<String> parameternamen=q.getResultList();
+		return parameternamen;
+	}
+
+	@Override
+	public void toggleLengteVoorgevel(long id){
+		Query q = em.createQuery("SELECT p. FROM Templates p WHERE p.idtemplates =:id");
+		q.setParameter("id", id);
+		List<Templates> templates = q.getResultList();
+		
+		Templates t= templates.get(0);
+		if (t.getLengtevoorgevel()==1){
+			//query om dit op 0 te zetten
+			StringBuilder sb = new StringBuilder();
+			sb.append("UPDATE templates SET lengtevoorgevel = 0 WHERE idPand=");
+			sb.append(id);
+			
+			Query setQuery = em.createNativeQuery(sb.toString());
+			setQuery.executeUpdate();
+		}
+		else{
+			//query om dit op 1 te zetten
+			StringBuilder sb = new StringBuilder();
+			sb.append("UPDATE templates SET lengtevoorgevel = 1 WHERE idPand=");
+			sb.append(id);
+			
+			Query setQuery = em.createNativeQuery(sb.toString());
+			setQuery.executeUpdate();
+			
+		}
+			
+	};
+	
+	
+}
+
+

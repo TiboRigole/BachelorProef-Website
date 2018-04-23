@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	version="3.1">
+
+	<display-name>JavaServerFaces</display-name>
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<!-- JSF mapping -->
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>/faces/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.jsf</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.faces</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.xhtml</url-pattern>
+	</servlet-mapping>
+
+
+	<welcome-file-list>
+		<welcome-file>index.faces</welcome-file>
+	</welcome-file-list>
+
+	<session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
+
+	<login-config>
+		<auth-method>FORM</auth-method>
+		<realm-name>retailsonar-realm</realm-name>
+		<form-login-config>
+			<form-login-page>/login.xhtml</form-login-page>
+			<form-error-page>/loginError.xhtml</form-error-page>
+		</form-login-config>
+	</login-config>
+
+	<error-page>
+		<error-code>403</error-code>
+		<location>/loginForbidden.xhtml</location>
+	</error-page>
+
+	<error-page>
+		<error-code>404</error-code>
+		<location>/notFound.xhtml</location>
+	</error-page>
+
+
+	<error-page>
+		<error-code>500</error-code>
+		<location>/intError.xhtml</location>
+	</error-page>
+
+	<!-- Security roles used by this web application -->
+
+	<security-role>
+		<role-name>Regiomanager</role-name>
+	</security-role>
+
+	<security-role>
+		<role-name>Expansionmanager</role-name>
+	</security-role>
+
+	<security-role>
+		<role-name>Admin</role-name>
+	</security-role>
+
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Secure Regiomanager Pages</web-resource-name>
+			<description />
+			<url-pattern>/regiomanager/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>Regiomanager</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Secure Expansionmanager Pages</web-resource-name>
+			<description />
+			<url-pattern>/expansionmanager/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>Expansionmanager</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Secure Admin Pages</web-resource-name>
+			<description />
+			<url-pattern>/admin/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>Admin</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+
+
+
+</web-app>

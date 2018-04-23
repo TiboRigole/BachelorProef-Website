@@ -1,0 +1,251 @@
+
+/* html en body */
+html, body{
+	height:100%;
+	width:100%;
+	overflow:auto
+	
+}
+
+
+/* cover */
+		#cover {
+			background: white;
+			background-position: center center;
+			background-size: cover;
+			height: 100%;
+			text-align: center;
+			display: flex;
+			aling-items: center;
+		}
+		
+		#cover-caption {
+			width:100%;
+			
+		}
+/* Style the tab */
+	.tabupdate {
+		width:80%;
+	    overflow: hidden;
+	    border: 1px solid #ccc;
+	    background-color: #f1f1f1;
+	}
+	
+	/* Style the buttons that are used to open the tab content */
+	.tabupdate button {
+	    background-color: inherit;
+	    float: left;
+	    border: none;
+	    outline: none;
+	    cursor: pointer;
+	    padding: 14px 16px;
+	    transition: 0.3s;
+	}
+	.tabupdate form{
+		float:right;
+		margin-top:7px;
+		margin-right:10px;
+	}
+	
+
+	/* Change background color of buttons on hover */
+	.tabupdate button:hover {
+	    background-color: #ddd;
+	}
+	
+	/* Create an active/current tablink class */
+	.tabupdate button.active {
+	    background-color: #ccc;
+	}
+	
+	/* Style the tab content */
+	.tabcontent {
+	    
+	    padding: 6px 12px;
+	    border: 1px solid #ccc;
+	    border-top: none;
+	}
+
+/* overlay info */
+		.overlay{
+			position:fixed;
+			top:0px;
+			left:0px;
+			width: 100%;
+			height: 0%;
+			background: rgba(0,0,0,.8);
+			overflow-x:hidden;
+			z-index:1;
+			transition:0.5s;
+		}
+		
+		.overlay a:hover{
+			color:#fff;
+			text-decoration:none;
+		}
+		
+		.overlay .closeBtn{
+			position: absolute;
+			top:20px;
+			right:50px;
+			font-size:40px;
+			
+		}
+		
+		
+		.overlay__content{
+			position:relative;
+			top:25%;
+			width: 100%;
+			text-align:center;
+			margin-top:30px;
+		}
+		
+		.overlay a{
+			padding:10px;
+			color: #ccc;
+			font-size:30px;
+			text-decoration:none;
+		}
+
+#zoekTekst{
+	-webkit-border-radius: 10px;
+-moz-border-radius: 10px;
+border-radius: 10px;
+}
+
+.searchBar{
+	width:100%;
+	height:25 px;
+	top:0px;
+	color:white;
+	border-width: 2px;
+   border-bottom-width:2px;
+   border-bottom-color:White;
+   border-bottom-style: solid;
+   border-right-width:2px;
+   border-right-color:White;
+   border-right-style: solid;
+   border-left-width:2px;
+   border-left-color:White;
+   border-left-style: solid;
+   margin-bottom: 25px;
+   margin-top:0px;
+   -webkit-border-radius: 10px;
+-moz-border-radius: 10px;
+border-radius: 10px;
+   padding: 10px;}
+
+#winkel{
+	weight:bold;
+	color:#d9534f;
+	margin-top:2.5px;
+	margin-right:5px;
+}
+
+.map{
+	margin-top:20px;
+	margin-bottom:20px;
+	width:500px;
+	height:500px;
+}
+
+.tabcontent #map{
+	z-index:0;
+	width:100%;
+	height:100%; 
+	top:0;
+}
+
+#tool{
+	display:none; 
+	width:80%; 
+	height:500px;
+}
+
+#info-table{
+	border-style:solid; 
+	position:absolute; 
+	float:right;
+	z-index:1;
+	width:15%; 
+	color:black; 
+	background-color:#fff;
+}
+
+/* algemeen */
+		.custom-center{
+			margin-left: auto;
+		    margin-right: auto;
+		}
+
+
+/* table met oppervlakte en lengte */
+		#info-table{
+			color:#eceeef;
+			background-color:#c0c0c0;
+			margin-left: auto;
+			}
+
+
+
+
+
+.form-inline {
+    text-align: center;
+}
+
+.column {
+    float: left;
+    width: 33.33%;
+}
+
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.imageBox{
+	position:relative;
+	margin: 40px auto;
+	border-radius:4px;
+	overflow:hidden;
+	max-width:600px;
+	min-height:100%;
+	
+	
+}
+
+.dots{fill:#ff2645}
+
+.btn-space{
+	margin-right:30px;
+}
+
+.bottom-space{
+	margin-bottom:100px;
+}
+.top-space{
+	margin-top:20px;
+}
+
+.logo-icon{
+	width:100px;
+}
+
+
+.helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.logo-text{
+	color:#EE3251;
+}
+
+.nav-bottom{
+	margin-bottom:30px;
+}

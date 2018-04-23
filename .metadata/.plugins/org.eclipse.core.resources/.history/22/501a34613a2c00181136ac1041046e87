@@ -1,0 +1,36 @@
+package controller;
+
+import java.util.List;
+
+import javax.ejb.EJB;
+import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.ManagedBean;
+import javax.inject.Named;
+
+import ejb.ParameterManagementEJBLocal;
+import ejb.TemplatesManagementEJBLocal;
+import entities.Parameter;
+
+//analoog aan templatesBean en pandbean gemaakt
+@ApplicationScoped
+@Named("parameterBean")
+@ManagedBean(name="parameterBean")
+public class ParameterBean {
+	private static final long serialVersionUID = -3737221385235612830L;
+	
+	//CLASS ATTRIBUTES
+	public Parameter parameter;
+
+	//DATABASE
+	@EJB
+	private ParameterManagementEJBLocal parameterEJB;
+
+	//een keer variabelen voorzien, zodat we ze niet telkens moeten herdefinieren
+	//werkt geheugensparend
+	
+	//CLASS METHODS
+	public List<Parameter> getParameterNamen(){
+		return parameterEJB.getParameterAlles()
+	}
+	
+}

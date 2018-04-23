@@ -1,0 +1,241 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+	<!-- icoontje bovenaan -->
+	<link rel="shortcut icon" href="#{resource['images/favicon.jpg']}" />
+
+	<!-- link naar css files -->
+	<h:outputStylesheet library="files/css" name="aanmakenaccount.css" />
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
+	<!-- de iconen vertalen -->
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+
+	<title><ui:insert name="title">Admin menu</ui:insert></title>
+</h:head>
+
+
+<!-- Lees de variabele in de link -->
+<f:metadata>
+	<f:viewParam name="pand" value="#{TemplatesBean.template.idPand}" />
+	<f:viewAction action="#{templatesBean.getTemplateById()}" />
+</f:metadata>
+
+<h:body
+	style="background:   url(#{resource['images/admin-background-op.jpg']}) no-repeat center center fixed;  
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover">
+
+	<!-- navigatiebar boven elke pagina -->
+	<nav class=" navbar nav-bottom"> <img
+		class="nav-item navbar-picture" src="#{resource['images/logo.gif']}" />
+	<img class="nav-item nav-logo-text"
+		src="#{resource['images/retailsonar.svg']}" />
+
+	<div class="topnav-right">
+		<div style="float: left; margin-top: 5px">
+			<h:outputText class="navbar-text" id="welkom"
+				value="Welkom, #{userBean.getNaam()}" />
+		</div>
+
+		<div style="float: right;">
+			<h:form>
+				<h:commandButton class="btn-navbar"
+					action="#{userBean.triggerHomeAdmin()}" value="terug" />
+				<h:commandButton class="btn-navbar" action="#{userBean.logout()}"
+					value="logout" />
+			</h:form>
+		</div>
+	</div>
+	</nav>
+	<!-- einde van de navigatiebalk -->
+
+	<center class="vertical-center">
+
+		<h:outputText class="title"
+			value="parameters van #{templatesBean.getStraat()}" />
+		<br />
+		<div></div>
+		<br />
+		<!-- begin van de datatable -->
+		<!--  ////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+		<br /> <br />
+		<div>
+			<table class="parameterstable">
+				<tr>
+					<th><h:outputText class="table-text" value="naam" /></th>
+					<td><h:outputText class="table-text" value="waarde" /></td>
+					<td><h:form id="resetButton">
+							<h:commandButton class="btn-navbar"
+								action="#{templatesBean.resetWaarden()}" value="reset" />
+							<h:commandButton class="btn-navbar"
+								action="#{templatesBean.setWaarden()}" value="alles 1" />
+						</h:form></td>
+				</tr>
+				<tr>
+					<th><h:outputText class="table-text" value="lengte voorgevel" />
+					</th>
+					<td><h:outputText class="table-text"
+							value="#{templatesBean.getLengteVoorgevel()}" /></td>
+					<td><h:form id="lengtevoorgevel-form">
+							<h:commandButton class="btn-navbar"
+								action="#{templatesBean.toggleLengteVoorgevel()}" value="toggle" />
+						</h:form></td>
+				</tr>
+				<tr>
+					<th><h:outputText class="table-text" value="oppervlakte" /></th>
+					<td><h:outputText class="table-text"
+							value="#{templatesBean.getOppervlakte()}" /></td>
+					<td><h:form id="oppervlakte-form">
+							<h:commandButton class="btn-navbar"
+								action="#{templatesBean.toggleOppervlakte()}" value="toggle" />
+						</h:form></td>
+				</tr>
+				<tr>
+					<th><h:outputText class="table-text" value="parking" /></th>
+					<td><h:outputText class="table-text"
+							value="#{templatesBean.getParking()}" /></td>
+					<td><h:form id="parking-form">
+							<h:commandButton class="btn-navbar"
+								action="#{templatesBean.toggleParking()}" value="toggle" />
+						</h:form></td>
+				</tr>
+				<tr>
+					<th><h:outputText class="table-text"
+							value="commerciële activiteit" /></th>
+					<td><h:outputText class="table-text"
+							value="#{templatesBean.getCommercieleActiviteit()}" /></td>
+					<td><h:form id="comActiviteit-form">
+							<h:commandButton class="btn-navbar"
+								action="#{templatesBean.toggleCommercieleActiviteit()}"
+								value="toggle" />
+						</h:form></td>
+				</tr>
+				<tr>
+					<th><h:outputText class="table-text" value="publiek transport" />
+					</th>
+					<td><h:outputText class="table-text"
+							value="#{templatesBean.getPubliekTransport()}" /></td>
+					<td><h:form id="publiektransport-form">
+							<h:commandButton class="btn-navbar"
+								action="#{templatesBean.togglePubliekTransport()}"
+								value="toggle" />
+						</h:form></td>
+				</tr>
+				<tr>
+					<th><h:outputText class="table-text" value="education" /></th>
+					<td><h:outputText class="table-text"
+							value="#{templatesBean.getEducation()}" /></td>
+					<td><h:form id="education-form">
+							<h:commandButton class="btn-navbar"
+								action="#{templatesBean.toggleEducation()}" value="toggle" />
+						</h:form></td>
+				</tr>
+				<tr>
+					<th><h:outputText class="table-text" value="bouwjaar" /></th>
+					<td><h:outputText class="table-text"
+							value="#{templatesBean.getBouwjaar()}" /></td>
+					<td><h:form id="bouwjaar-form">
+							<h:commandButton class="btn-navbar"
+								action="#{templatesBean.toggleBouwjaar}" value="toggle" />
+						</h:form></td>
+				</tr>
+
+				<tr>
+					<th><h:outputText class="table-text" value="passage" /></th>
+					<td><h:outputText class="table-text"
+							value="#{templatesBean.getPassage()}" /></td>
+					<td><h:form id="passage-form">
+							<h:commandButton class="btn-navbar"
+								action="#{templatesBean.togglePassage()}" value="toggle" />
+						</h:form></td>
+				</tr>
+
+				<tr>
+					<th><h:outputText class="table-text" value="toegankelijkheid" />
+					</th>
+					<td><h:outputText class="table-text"
+							value="#{templatesBean.getToegankelijkheid()}" /></td>
+					<td><h:form id="toegankelijkheid-form">
+							<h:commandButton class="btn-navbar"
+								action="#{templatesBean.toggleToegankelijkheid()}"
+								value="toggle" />
+						</h:form></td>
+				</tr>
+
+				<tr>
+					<th><h:outputText class="table-text"
+							value="microtoegankelijkheid" /></th>
+					<td><h:outputText class="table-text"
+							value="#{templatesBean.getMicroToegankelijkheid()}" /></td>
+					<td><h:form id="microtoegankelijkheid-form">
+							<h:commandButton class="btn-navbar"
+								action="#{templatesBean.toggleMicroToegankelijkheid()}"
+								value="toggle" />
+						</h:form></td>
+				</tr>
+
+				<tr>
+					<th><h:outputText class="table-text"
+							value="shop area appreciation" /></th>
+					<td><h:outputText class="table-text"
+							value="#{templatesBean.getShopAreaAppreciation()}" /></td>
+					<td><h:form id="ShopAreaAppreciation-form">
+							<h:commandButton class="btn-navbar"
+								action="#{templatesBean.toggleShopAreaAppreciation()}"
+								value="toggle" />
+						</h:form></td>
+				</tr>
+
+				<tr>
+					<th><h:outputText class="table-text" value="correctiefactor" />
+					</th>
+					<td><h:outputText class="table-text"
+							value="#{templatesBean.getCorrectiefactor()}" /></td>
+					<td><h:form id="correctiefactor-form">
+							<h:commandButton class="btn-navbar"
+								action="#{templatesBean.toggleCorrectiefactor()}" value="toggle" />
+						</h:form></td>
+				</tr>
+
+				<tr>
+					<th><h:outputText class="table-text" value="lokaal monopolie" />
+					</th>
+					<td><h:outputText class="table-text"
+							value="#{templatesBean.getLokaalMonopolie()}" /></td>
+					<td><h:form id="lokaalmonopolie-form">
+							<h:commandButton class="btn-navbar"
+								action="#{templatesBean.toggleLokaalMonopolie()}" value="toggle" />
+						</h:form></td>
+				</tr>
+
+			</table>
+		</div>
+
+		<div>
+			<br /> <br /> <br /> <br />
+		</div>
+
+
+
+
+
+
+	</center>
+
+
+
+</h:body>
+</html>
+
+

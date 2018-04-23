@@ -1,0 +1,182 @@
+package controller;
+
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Serializable;
+import java.net.URL;
+import javax.ejb.EJB;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.event.PhaseId;
+import javax.imageio.ImageIO;
+import javax.inject.Named;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
+import org.primefaces.model.UploadedFile;
+import ejb.PandManagementEJBLocal;
+import entities.Pand;
+
+/**
+ * Bean die alles ivm afbeeldingen behandelt op de website
+ */
+@SessionScoped
+@Named("imageBean")
+@ManagedBean(name="imageBean")
+public class ImageBean implements Serializable {
+	private static final long serialVersionUID = -3737221385235612830L;
+	
+	/**
+	 * uitvoeren van methodes die betrekking hebben tot de panden
+	 */
+	@EJB
+	PandManagementEJBLocal pandEJB;
+	
+	/**
+	 * variabele nodig om afbeeldinge up te loaden (bij regiomanager)
+	 */
+	private UploadedFile file;
+	
+	/**
+	 * id van de afbeelding van het pand
+	 * komt eigenlijk overeen met pand_id
+	 */
+	private String image_id;
+	
+	/**
+	 * variabele die wordt gebruikt om een afbeelding in te laden van een bepaald pand
+	 */
+	private StreamedContent dbImage=new DefaultStreamedContent();
+	
+	/**
+	 * een afbeelding die wordt ingeladen als het pand nog geen afbeelding heeft
+	 * (in de database heeft het pand met id (image_id) null bij waarde 'afbeelding'
+	 */
+	private StreamedContent defaultImage;
+
+	/**
+	 * methode die gebruikt wordt als we een afbeeldinge moeten laden, maar het pand nog geen afbeelding heeft
+	 * 
+	 * wordt enkel opgeroepen in de getFoto() methode hieronder
+	 * 
+	 * @return StreamedContent : de 'noimage.jpg' afbeelding
+	 * @throws IOException als de 'noimage.jpg' niet gevonden werd
+	 */
+	public StreamedContent getDefaultImage() throws IOException{
+		
+		InputStream dbStream;
+		ByteArrayOutputStream baos=new ByteArrayOutputStream(1000);
+		URL url = getClass().getResource("noimage.jpg");
+		BufferedImage img=ImageIO.read(new File(url.getPath()));
+		ImageIO.write(img, "jpg", baos);
+		baos.flush();
+ 
+		byte[] bytearray=baos.toByteArray();
+		baos.close();
+ 
+		dbStream= new ByteArrayInputStream (bytearray);
+		dbImage = new DefaultStreamedContent(dbStream, "image/jpeg");
+		return dbImage;
+	}
+	
+	
+	/**
+	 * Aparte methode om een specifieke afbeelding op te vragen en in te laden
+	 * 
+	 * laadt de foto uit de database als een array van bytes, converteert ze naar het juiste
+	 * formaat om te returnen
+	 * 
+	 * als het pand geen afbeelding heeft, wordt de methode hierboven opgeroepen,
+	 * dan wordt 'noimage.jpg' ingeladen
+	 * 
+	 * @return StreamedContent voor pand bij updaten
+	 * 
+	 */
+	public StreamedContent getFoto() {
+		
+		FacesContext context = FacesContext.getCurrentInstance();
+
+        if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
+        	// als we de view laden, returnt een stub, zodat het de juiste URL zal weergeven
+            // heeft te maken dat een afbeelding via een aparte get wordt ingeladen
+            return new DefaultStreamedContent();
+        }
+        else {
+        	// als de browser de afbeelding inlaadt
+        	
+    		image_id = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("image_id");
+        	Long id = Long.valueOf(image_id);
+        	Pand p = pandEJB.findPand(id);
+        	if(p.getAfbeelding()==null){
+            	
+            	//hier de default afbeelding inladen
+                try {
+					return getDefaultImage();
+					}
+                catch (IOException e) {
+					e.printStackTrace();
+					return null;
+				}
+            	
+        	}
+        	else{
+	        	byte[] image = p.getAfbeelding();
+	            return new DefaultStreamedContent(new ByteArrayInputStream(image));
+        	}
+        }
+	}
+
+	/**
+	 * methode die een afbeelding inlaadt, en opslaat in de databank
+	 * wordt gebruikt bij regiomanager/updatePand.xhtml
+	 * 
+	 * laadt een gekozen lokale (op de computer gevonden) afbeelding in
+	 * converteert ze naar het juiste formaat voor in de databank
+	 * zet ze in de databank, bij het juiste pand
+	 * 
+	 * @return link van de html pagina waar we naartoe gaan na het uploaden van de afbeelding
+	 */
+	public String upload(){
+		if(file != null) {
+			//image id is al ingevuld als we deze methode nodig hebben, want we hebben de afbeelding
+			//als opgevraagd als bij het laden van de pagina
+			Pand p = pandEJB.findPand(Long.valueOf(image_id));
+			
+			byte [] image = file.getContents();
+			
+			pandEJB.setAfbeelding(Long.valueOf(image_id), image);
+		}
+
+		return "openProject.faces?faces-redirect=true";
+	}
+	
+	//////////////// GETTERS EN SETTERS //////////////////////////
+	public UploadedFile getFile() {
+	    return file;
+	}
+
+	public void setFile(UploadedFile file) {
+	    this.file = file;
+	}
+	
+	public StreamedContent getDbImage() {
+		return dbImage;
+	}
+
+	public void setDbImage(StreamedContent dbImage) {
+		this.dbImage = dbImage;
+	}
+
+	public PandManagementEJBLocal getPandEJB() {
+		return pandEJB;
+	}
+
+	public void setPandEJB(PandManagementEJBLocal pandEJB) {
+		this.pandEJB = pandEJB;
+	}
+	
+}

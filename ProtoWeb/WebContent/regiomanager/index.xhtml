@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+
+<h:head>
+	<link rel="shortcut icon" href="#{resource['images/favicon.png']}" />
+	<!-- link naar css files -->
+	<h:outputStylesheet library="files/css" name="algemeen.css" />
+	<title>U wordt doorverwezen...</title>
+</h:head>
+
+<h:body onload="#{userBean.regioBackHome()}"
+	style="background: url('#{resource['images/retailsonar_swirl.svg']}') no-repeat center center fixed, url('#{resource['images/hero-homepage.jpg']}') no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover">
+</h:body>
+
+</html>

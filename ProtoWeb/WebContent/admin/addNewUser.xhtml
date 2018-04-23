@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<link rel="shortcut icon" href="#{resource['images/favicon.jpg']}" />
+	<h:outputStylesheet library="files/css" name="aanmakenaccount.css" />
+	<!-- link naar css files -->
+
+	<title><ui:insert name="title">Nieuwe gebruiker</ui:insert></title>
+</h:head>
+
+
+
+<h:body onload="init()"
+	style="background:  url(#{resource['images/admin-background-op.jpg']}) no-repeat center center fixed;  
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover">
+
+	<nav class=" navbar nav-bottom"> <img
+		class="nav-item navbar-picture" src="#{resource['images/logo.gif']}" />
+	<img class="nav-item nav-logo-text"
+		src="#{resource['images/retailsonar.svg']}" />
+
+	<div class="topnav-right">
+		<div style="float: left; margin-top: 5px">
+			<h:outputText class="navbar-text" id="welkom"
+				value="Welkom, #{userBean.getNaam()}" />
+		</div>
+
+		<div style="float: right;">
+			<h:form>
+				<h:commandButton class="btn-navbar"
+					action="#{userBean.triggerHomeAdmin()}" value="terug" />
+				<h:commandButton class="btn-navbar" action="#{userBean.logout()}"
+					value="logout" />
+			</h:form>
+		</div>
+	</div>
+
+	</nav>
+	<!-- einde van de nav bar  -->
+
+	<center class="vertical-center">
+
+		<h:form id="form" class="form-group">
+
+
+			<!-- Address form -->
+
+			<h2 class="title">Aanmaken account</h2>
+
+
+			<!-- ingeven voornaam en familienaam -->
+			<div class="form-group">
+				<label class="control-label">Voornaam + Familienaam *</label>
+				<div class="controls">
+					<h:inputText autofocus="autofocus" required="true" id="name"
+						name="name" type="text" placeholder="name" class="form-control"
+						value="#{userBean.person.name}"
+						requiredMessage="Gelieve naam in te geven" />
+				</div>
+			</div>
+
+			<!-- ingeven username -->
+			<div class="form-group">
+				<label class="control-label">Username *</label>
+				<div class="controls">
+					<h:inputText required="true" id="login" name="login" type="text"
+						placeholder="login" class="form-control"
+						value="#{userBean.person.login}"
+						requiredMessage="Gelieve username in te geven" />
+					<p class="help-block" />
+				</div>
+			</div>
+
+			<h:messages for="form:login" errorClass="errorMessage"></h:messages>
+
+			<!-- ingeven paswoord -->
+			<div class="form-group">
+				<label class="control-label">Paswoord *</label>
+				<div class="controls">
+					<h:inputSecret required="true" id="hPassword" name="hPassword"
+						type="text" placeholder="hPassword" class="form-control"
+						value="#{userBean.person.hPassword}"
+						requiredMessage="Gelieve paswoord in te geven" />
+					<p class="help-block"></p>
+				</div>
+			</div>
+
+			<h:messages for="form:hPassword" errorClass="errorMessage"
+				warnClass="warnMessage"></h:messages>
+
+			<!-- confirm paswoord -->
+			<div class="form-group">
+				<label class="control-label">Confirm Paswoord *</label>
+				<div class="controls">
+					<h:inputSecret required="true" id="confirmPassword"
+						name="hPassword" type="text" placeholder="hPassword"
+						class="form-control" value="#{userBean.confirmPass}"
+						requiredMessage="Gelieve paswoord in te geven" />
+					<p class="help-block"></p>
+
+				</div>
+
+			</div>
+
+			<h:messages for="form:confirmPassword" errorClass="errorMessage"></h:messages>
+
+
+			<!-- ingeven winkel -->
+			<div class="form-group">
+				<label class="control-label">Winkel *</label>
+				<div class="controls">
+					<h:selectOneMenu id="winkel" name="winkel" class="form-control"
+						value="#{userBean.person.winkel}" required="true"
+						requiredMessage="Gelieve winkel in te geven">
+						<f:selectItem itemValue="Carrefour" itemLabel="Carrefour" />
+						<f:selectItem itemValue="Colruyt" itemLabel="Colruyt" />
+						<f:selectItem itemValue="Delhaize" itemLabel="Delhaize" />
+
+						<f:selectItem itemValue="Nvt (Admin)"
+							itemLabel="Niet Van Toepassing" />
+					</h:selectOneMenu>
+					<p class="help-block"></p>
+				</div>
+			</div>
+			<!-- ingeven adres -->
+			<div class="form-group">
+				<label class="control-label">Adres</label>
+				<div class="controls">
+					<h:inputText id="address" name="address" type="address"
+						placeholder="address" class="form-control"
+						value="#{userBean.person.address}" />
+					<p class="help-block"></p>
+				</div>
+			</div>
+			<!-- ingeven group -->
+			<div class="form-group">
+				<label class="control-label">Group *</label>
+				<div class="controls">
+					<h:selectOneMenu id="group" name="group" class="form-control"
+						value="#{userBean.person.group}" required="true"
+						requiredMessage="Gelieve functie in te geven">
+
+						<f:selectItem itemValue="Regiomanager" itemLabel="Regiomanager" />
+						<f:selectItem itemValue="Expansionmanager"
+							itemLabel="Expansionmanager" />
+						<f:selectItem itemValue="Admin" itemLabel="Admin" />
+					</h:selectOneMenu>
+
+
+				</div>
+
+			</div>
+			<!-- ingeven werkregio -->
+			<div class="form-group">
+				<label class="control-label">werkregio voor regiomanagers *</label>
+				<div class="controls">
+					<h:inputText id="werkregio" name="werkRegio"
+						placeholder="werkregio" class="form-control"
+						value="#{userBean.person.regioWerk}" />
+
+
+				</div>
+
+			</div>
+			<div>
+
+				<h:commandButton value="Maak account aan"
+					action="#{userBean.addNewUser}"
+					class="btn-200 btn-vert-space btn-white single-element" />
+
+			</div>
+
+
+
+		</h:form>
+
+
+
+
+	</center>
+
+</h:body>
+
+</html>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="ProtoEJB">
+        <wb-resource deploy-path="/" source-path="/ejbModule" tag="defaultRootSource"/>
+        <property name="java-output-path" value="/ProtoEJB/build/classes"/>
+        <property name="ClientProject" value="ProtoEJBClient"/>
+        <property name="ClientJARURI" value="ProtoEJBClient.jar"/>
+    </wb-module>
+</project-modules>

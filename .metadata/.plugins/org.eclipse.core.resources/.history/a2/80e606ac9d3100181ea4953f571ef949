@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+  <link rel="shortcut icon" href="#{resource['images/favicon.jpg']}" />
+	<link rel="stylesheet" href="#{resource['files/css/bootstrap.min.css']}" />
+	<link rel="stylesheet" href="#{resource['files/css/styles.css']}" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/css/bootstrap.min.css" />
+  	
+  	<!-- de iconen vertalen -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+  	
+  	
+  	
+  	<title>
+    	<ui:insert name="title">Admin menu</ui:insert>
+  	</title>
+</h:head>
+
+<!-- Lees de variabele in de link -->
+	<f:metadata>
+		<f:viewParam name="Winkel" value="#{pandBean.pand.winkel}"/>
+		<f:viewAction action="#{pandBean.getWinkelPanden()}"/>
+		<!-- klopt niet -->
+	</f:metadata>
+
+
+<h:body
+	style="background: url(#{resource['images/dubai.jpg']}) no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover">
+
+	
+		
+	<!-- navigatiebar boven elke pagina -->
+	<nav id="nav-main" class="nav-bottom navbar navbar-expand-lg navbar-light bg-white">
+			
+		  		<img src="#{resource['images/logo.gif']}" class="helper" style="margin-bottom:5px;margin-right:10px;width:30px"/>
+		  	<div class="navbar-header">
+				<a class="navbar-brand" style="color:#EE3251" href="https://retailsonar.com/" target="_blank">RetailSonar</a>
+			</div>
+			<ul class="navbar-nav ml-auto">
+			
+			<!-- knop annuleer, rechts op de pagina -->
+			<h:form>
+				<a class="nav-link" href="startNieuw.xhtml">Terug</a>
+			</h:form>
+			</ul>	
+	</nav>
+	
+	<h:outputText class="text-center" style="color:white;" id="getWinkel" value="Kies een pand van #{pandBean.getWinkelTxt()}"/>
+	<h:outputText class="text-center" style="color:white;" id="testbox1" value="tussen"/>
+	<br/>
+	<!-- {pandBean.findWinkelPanden()} -->
+	<br/>
+	<h:outputText class="text-center" style="color:white;" id="testbox3" value="kikt ekeer ier"/>
+	
+	<!-- de tabel -->
+		
+		
+		<div class="container">
+			<h:form id="my-form">
+				<!-- alles dat in de db staat weergeven in een tabel -->
+			<h:dataTable id="dataTable" class="table dataTable" value="#{pandBean.findWinkelPanden()}" var="pand">
+				
+				
+				<h:column>
+					<f:facet id="facet" name="header">
+						<h:outputText class="text-center" style="color:white;" id="straat" value="straat" />
+					</f:facet>
+					<h:outputText style="color:white" value="#{pand.straat}"/>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:outputText class="text-center" style="color:white;" id="postcode" value="postcode" />
+					</f:facet>
+					<h:outputText style="color:white" class="login_user" value="#{pand.postcode}"/>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:outputText class="text-center" style="color:white;" id="stad" value="stad" />
+					</f:facet>
+					<h:outputText style="color:white" class="login_user" value="#{pand.stad}"/>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						<h:outputText class="text-center" style="color:white;" id="provincie" value="provincie" />
+					</f:facet>
+					<h:outputText style="color:white" class="login_user" value="#{pand.provincie}"/>
+				</h:column>
+	
+				<h:column>
+					<f:facet name="header">
+						<h:outputText class="text-center" style="color:white;" id="land" value="land" />
+					</f:facet>
+					<h:outputText style="color:white" class="login_user" value="#{pand.land}"/>
+				</h:column>
+				
+				<!-- edit knop -->
+				<h:column>
+					<f:facet name="header">
+						<h:outputText class="text-center" style="color:white;" id="edit" value="edit"/>
+					</f:facet>
+					
+					<a style="color:white; text-decoration: none" class='material-icons' href="modifyParameters_pand.faces?Pand=#{pand.id}">edit</a>
+				</h:column>	
+				
+			</h:dataTable>
+			
+			</h:form>
+			
+		</div>
+	
+</h:body>
+
+</html>
+

@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<!-- icoontje bovenaan -->
+	<link rel="shortcut icon" href="#{resource['images/favicon.jpg']}" />
+
+	<!-- link naar css files -->
+	<h:outputStylesheet library="files/css" name="aanmakenaccount.css" />
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+	<!-- de iconen vertalen -->
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+
+	<title><ui:insert name="title">Admin Menu</ui:insert></title>
+</h:head>
+
+
+
+<h:body
+	style="background:   url(#{resource['images/admin-background-op.jpg']}) no-repeat center center fixed;  
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover">
+
+
+
+	<!-- navigatiebar bovenaan de pagina -->
+	<nav class=" navbar nav-bottom"> <img
+		class="nav-item navbar-picture" src="#{resource['images/logo.gif']}" />
+	<img class="nav-item nav-logo-text"
+		src="#{resource['images/retailsonar.svg']}" />
+
+	<div class="topnav-right">
+		<div style="float: left; margin-top: 5px">
+			<h:outputText class="navbar-text" id="welkom"
+				value="Welkom, #{userBean.getNaam()}" />
+		</div>
+
+		<div style="float: right;">
+			<h:form>
+				<h:commandButton class="btn-navbar"
+					action="#{userBean.triggerHomeAdmin()}" value="terug" />
+				<h:commandButton class="btn-navbar" action="#{userBean.logout()}"
+					value="logout" />
+			</h:form>
+		</div>
+	</div>
+	</nav>
+	<!-- einde van de navbar -->
+
+	<center class="vertical-center">
+
+
+		<h2 class="title">Kies een winkel</h2>
+
+		<!-- datatable met de verschillende winkels, elk met een knop op te wijzigen -->
+		<div class="container">
+			<h:form id="my-form">
+				<!-- alles dat in de DB staat weergeven in een tabel -->
+
+
+				<h:dataTable id="dataTable" class="table dataTable"
+					value="#{pandBean.getAllWinkels()}" var="winkel" styleClass="users"
+					cellspacing="0" cellpadding="0" border="0" rowClasses="odd,even"
+					columnClasses="winkel,edit">
+
+					<h:column>
+
+						<h:outputText style="color:white" value="#{winkel}" />
+					</h:column>
+
+					<h:column>
+
+						<a style="color: white; text-decoration: none"
+							class='material-icons'
+							href="modifyParameters_for_winkel.faces?Winkel=#{winkel}">edit</a>
+					</h:column>
+
+
+				</h:dataTable>
+
+			</h:form>
+		</div>
+	</center>
+</h:body>
+
+</html>

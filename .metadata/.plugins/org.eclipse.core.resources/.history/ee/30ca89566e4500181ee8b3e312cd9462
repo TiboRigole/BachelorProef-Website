@@ -1,0 +1,500 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<!-- Pagina die panden weergeeft -->
+
+
+<h:head>
+	<link rel="shortcut icon" href="#{resource['images/favicon.jpg']}" />
+	<!-- link naar css files -->
+
+	<!-- <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/> -->
+
+	<link rel="stylesheet" href="../resources/files/css/bootstrap.min.css" />
+
+
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/css/bootstrap.min.css" />
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+		rel="stylesheet" />
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<link rel="stylesheet" href="../resources/files/css/styles.css" />
+	<title><ui:insert name="title">Home</ui:insert></title>
+
+
+</h:head>
+
+<f:metadata>
+	<f:viewParam name="pand" value="#{pandBean.pand.id}" />
+	<f:viewAction action="#{pandBean.findPand}" />
+</f:metadata>
+
+
+
+<h:body onload="#{pandBean.dynamicHTML()}"
+	style="
+		background:  linear-gradient(
+				      rgba(0, 0, 0, 0.45), 
+				      rgba(0, 0, 0, 0.45)
+				    ), url(#{resource['images/hero-frontpage-op.jpg']}) no-repeat center center fixed; 
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
+		background-size: cover;
+		mix-blend-mode: difference;
+		">
+	<div class="bg-dif">
+		<!-- navigatie bar boven elke pagina -->
+		<nav id="nav-main"
+			class="nav-bottom navbar navbar-expand-lg navbar-light bg-white">
+
+		<img src="#{resource['images/logo.gif']}" class="helper"
+			style="margin-bottom: 5px; margin-right: 10px; width: 30px" />
+		<div class="navbar-header">
+			<a class="navbar-brand" style="color: #EE3251"
+				href="https://retailsonar.com/" target="_blank">RetailSonar</a>
+		</div>
+		<ul class="nav navbar-nav">
+
+
+			<li class="nav-item"><a class="nav-link"
+				onclick="return confirmationClose()" href="openProject.xhtml">Open
+					Project</a></li>
+
+		</ul>
+
+
+		<ul class="navbar-nav ml-auto">
+			<h:outputText id="winkel" value="#{userBean.getUserWinkel()}">
+
+			</h:outputText>
+
+		</ul>
+
+
+		</nav>
+
+
+		<!-- hoofding pagina  -->
+		<div style="color: white; text-align: center;" class="container">
+			<div class="row">
+				<div class="col-sm-12 col-lg-12">
+					<h1 class="h1">
+						Update Pand <small></small>
+					</h1>
+				</div>
+			</div>
+		</div>
+
+		<div class="tabupdate custom-center">
+			<button class="tablinks" onclick="openTab(event, 'Locatie')">Locatie</button>
+			<button class="tablinks" onclick="openTab(event, 'Parameters')">Parameters</button>
+			<button class="tablinks" onclick="openTab(event, 'tool')">Maps Tool</button>
+			<button class="tablinks" onclick="openTab(event, 'Foto')">Foto</button>
+		</div>
+
+		<div id="Locatie" class="tabcontent custom-center" style="width: 80%">
+
+			<!-- FORM -->
+			<div class="container"
+				style="margin-left: 150px; margin-right: auto;">
+				<div class="row">
+					<div class="col-md-8">
+						<div class="well well-sm">
+
+							<h:form id="my-form" class="form-group">
+								<fieldset id="fieldset">
+									<!-- Address form -->
+
+
+									<!-- address input-->
+									<div class="form-group">
+										<label class="control-label" style="color: white">Adres</label>
+										<div class="controls">
+											<h:inputText autofocus="autofocus" disabled="true"
+												id="straat" name="straat" type="text" placeholder="straat"
+												class="adres form-control" value="#{pandBean.pand.straat}" />
+											<!-- <p class="help-block" style="color: white">Straat adres, P.O.
+								box, bedrijfsnaam, c/o</p> -->
+										</div>
+									</div>
+
+									<!-- city input-->
+									<div class="form-group">
+										<label class="control-label" style="color: white">Stad
+											/ Gemeente</label>
+										<div class="controls">
+											<h:inputText disabled="true" id="stad" name="stad"
+												type="text" placeholder="stad" class="adres form-control"
+												value="#{pandBean.pand.stad}" />
+											<p class="help-block" />
+										</div>
+									</div>
+									<!-- region input-->
+									<div class="form-group">
+										<label class="control-label" style="color: white">
+											Provincie / Regio</label>
+										<div class="controls">
+											<h:inputText disabled="true" id="regio" name="regio"
+												type="text" placeholder="staat / provincie / regio"
+												class="adres form-control"
+												value="#{pandBean.pand.provincie}" />
+											<p class="help-block"></p>
+										</div>
+									</div>
+									<!-- postal-code input-->
+									<div class="form-group">
+										<label class="control-label" style="color: white">
+											Postcode</label>
+										<div class="controls">
+											<h:inputText disabled="true" id="postcode" name="postcode"
+												type="text" placeholder="zip of postcode"
+												class="adres form-control" value="#{pandBean.pand.postcode}" />
+											<p class="help-block"></p>
+										</div>
+									</div>
+
+									<!-- country select -->
+									<div class="form-group">
+										<label class="control-label" style="color: white">Land</label>
+										<div class="controls">
+											<h:selectOneMenu disabled="true" id="land" name="land"
+												class="adres input-xlarge" value="#{pandBean.pand.land}">
+												<f:selectItem itemValue="" itemLabel="(selecteer een land)" />
+												<f:selectItem itemValue="België" itemLabel="België" />
+												<f:selectItem itemValue="Luxemburg" itemLabel="Luxemburg" />
+												<f:selectItem itemValue="Nederland" itemLabel="Nederland" />
+											</h:selectOneMenu>
+										</div>
+									</div>
+
+								</fieldset>
+							</h:form>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div id="Parameters" class="tabcontent custom-center"
+			style="display: none; width: 80%">
+
+			<!-- FORM -->
+			<div class="container"
+				style="margin-left: 150px; margin-right: auto;">
+				<div class="row">
+					<div class="col-md-8">
+						<div class="well well-sm">
+
+							<h:form id="my-form2" class="form-group">
+
+
+								<fieldset id="fieldset2">
+
+									<!-- hier komen de "noodzakelijke" parameters aangegeven door RetailSonar  -->
+									<h:panelGroup layout="block" binding="#{pandBean.group}"></h:panelGroup>
+
+									<!-- 
+				Wanneer deze button ingedrukt wordt, vraagt men alle noodzakelijke parameters op en deze worden uitgeschreven naar de console in eclipse
+				samen met hun datatypes
+				
+				<div>
+					<h:commandButton value="Test nodige Params en Types" action="#{pandBean.getAlleNoodzakelijkeParameters()}" class="btn-submit pull-left"/>
+				</div>  
+				
+				
+				-->
+
+								</fieldset>
+								<h:commandButton id="updateButton" value="Edit"
+									action="#{pandBean.updatePand()}" class="btn-submit btn" />
+							</h:form>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		
+		<div id="Foto" class="tabcontent custom-center"
+			style="display: none; width: 80%">
+			
+			<center>
+			
+			<!-- hierin komt dan de foto inladinge -->
+			<h:panelGroup>
+				<p:graphicImage style="height:140px; "  alt="image"  value="#{imageBean.getFoto()}" cache="false">
+	            	<f:param id="image_id" name="image_id" value="#{pandBean.getId()}"/>
+				</p:graphicImage>
+			</h:panelGroup>
+			
+			<br/>
+			
+			
+			<h:form id="form" enctype="multipart/form-data">
+			
+			  <p:fileUpload id="file" value="#{imageBean.file}" class="btn-submit btn" mode="simple" skinSimple="true"/>
+			  <h:commandButton value="Upload" class="btn-submit btn" action="#{imageBean.upload()}"/>
+			</h:form>
+			
+			</center>
+		</div>
+
+
+		<!-- Hierin worden alle noodzakelijke parameters weergegeven (eigenlijk niet meer nodig) -->
+		<h:inputHidden id="params"
+			value="#{pandBean.getAlleNoodzakelijkeParameters()}"></h:inputHidden>
+
+		<div id="tool" style="display: none; width: 80%; height: 500px;"
+			class="custom-center tabcontent">
+			<!-- Tabelletje met waarden van metingen -->
+
+			<table id="info-table" class="table table-condensed"
+				style="margin-left: 10px; margin-top: 50px; color: black; background-color: #fff;">
+				<thead>
+					<tr>
+						<th><input type="button" class="material-icons"
+							style="color: black; font-size: 18px; background: none; border: none;"
+							value="layers_clear" onclick="measureReset()" /></th>
+						<th><div style="font-size: 12px">afstand</div> <input
+							type="button" onclick="copyLengte()"
+							style="color: black; font-size: 18px; background: none; border: none;"
+							class="material-icons" value="content_copy"></input></th>
+						<th><div style="font-size: 12px">oppervlakte</div> <input
+							type="button" onclick="copyOpp()"
+							style="color: black; font-size: 18px; background: none; border: none;"
+							class="material-icons" value="content_copy"></input></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th>
+							<div style="font-size: 12px">metingen</div>
+						</th>
+						<td style="font-size: 12px" id="span-length"></td>
+						<td style="font-size: 12px" id="span-area"></td>
+					</tr>
+
+				</tbody>
+			</table>
+
+
+			<div id="map"></div>
+
+
+
+		</div>
+
+		<div id="info_content" class="overlay">
+
+			<button type="button" class="closeBtn"
+				style="color: white; background: none; border: none;"
+				onclick="closeInfo()">X [esc]</button>
+
+			<div id="overlay__content" class="overlay__content">
+				<a href="">Extra informatie</a>
+
+			</div>
+
+
+		</div>
+
+
+
+
+		<!-- Script bij geven van info -->
+		<script>
+function geefExtraInfo(parameter){
+	
+	var element=document.getElementById("my-form2:"+parameter);
+	if(parameter==="oppervlakte"){
+		element.innerHTML="in m"+"2".sup();
+	}
+	else if(parameter==="lengtevoorgevel"){
+		element.innerHTML="in meter";
+	}
+	
+	
+}
+</script>
+
+		<script>
+
+document.onkeydown = function(evt) {
+    evt = evt || window.event;
+    var isEscape = false;
+    if ("key" in evt) {
+        isEscape = (evt.key == "Escape" || evt.key == "Esc");
+    } else {
+        isEscape = (evt.keyCode == 27);
+    }
+    if (isEscape) {
+    	document.getElementById('info_content').style.height = "0%";
+    }
+};
+
+function closeInfo(){
+	document.getElementById('info_content').style.height = "0%";
+	
+}
+
+
+
+function openInfo(ele){
+	var id= ele.id;
+	console.log(id);
+	document.getElementById('info_content').style.height = "100%";
+	
+	
+	
+	
+	
+	if(id==="my-form2:parking_info_button"){
+		$(document).ready(function(){
+		$('#overlay__content').load("../overlays/parking_overlay.xhtml");
+		});
+	}
+	else if(id==="my-form2:lengtevoorgevel_info_button"){
+		$(document).ready(function(){
+			$('#overlay__content').load("../overlays/lengtevoorgevel_overlay.xhtml");
+			});
+	}
+	else if(id==="my-form2:oppervlakte_info_button"){
+		$(document).ready(function(){
+			$('#overlay__content').load("../overlays/oppervlakte_overlay.xhtml");
+			});
+	}
+	else if(id==="my-form2:publiekTransport_info_button"){
+		$(document).ready(function(){
+			$('#overlay__content').load("../overlays/publiekTransport_overlay.xhtml");
+			});
+	}
+	else if(id==="my-form2:commercieleActiviteit_info_button"){
+		$(document).ready(function(){
+			$('#overlay__content').load("../overlays/commercieleActiviteit_overlay.xhtml");
+			});
+	}
+	else if(id==="my-form2:education_info_button"){
+		$(document).ready(function(){
+			$('#overlay__content').load("../overlays/education_overlay.xhtml");
+			});
+	}
+	else if(id==="my-form2:bouwjaar_info_button"){
+		$(document).ready(function(){
+			$('#overlay__content').load("../overlays/bouwjaar_overlay.xhtml");
+			});
+	}
+	else if(id==="my-form2:passage_info_button"){
+		$(document).ready(function(){
+			$('#overlay__content').load("../overlays/passage_overlay.xhtml");
+			});
+	}
+	else if(id==="my-form2:toegankelijkheid_info_button"){
+		$(document).ready(function(){
+			$('#overlay__content').load("../overlays/toegankelijkheid_overlay.xhtml");
+			});
+	}
+	else if(id==="my-form2:microtoegankelijkheid_info_button"){
+		$(document).ready(function(){
+			$('#overlay__content').load("../overlays/microtoegankelijkheid_overlay.xhtml");
+			});
+	}
+	else if(id==="my-form2:shopareaappreciation_info_button"){
+		$(document).ready(function(){
+			$('#overlay__content').load("../overlays/shopareaappreciation_overlay.xhtml");
+			});
+	}
+	else if(id==="my-form2:correctiefactor_info_button"){
+		$(document).ready(function(){
+			$('#overlay__content').load("../overlays/error_correctiefactor.xhtml");
+			});
+	}
+	else if(id==="my-form2:lokaalmonopolie_info_button"){
+		$(document).ready(function(){
+			$('#overlay__content').load("../overlays/error_lokaalmonopolie.xhtml");
+			});
+	}
+	else{
+		$(document).ready(function(){
+			$('#overlay__content').load("../overlays/error_overlay.xhtml");
+			});
+	}
+	
+	
+}
+</script>
+
+
+		<script>
+
+//Declare all variables
+var i, tabcontent, tablinks;
+
+function openTab(evt, tabName) {
+
+	tabcontent = document.getElementsByClassName("tabcontent");
+	for (i = 0; tabcontent.length > i; i++) {
+	    tabcontent[i].style.display = "none";
+	}
+    // Get all elements with class="tablinks" and remove the class "active"
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; tablinks.length > i; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+
+    // Show the current tab, and add an "active" class to the button that opened the tab
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+
+</script>
+
+		<script type="text/javascript">
+function confirmationClose(){
+	return confirm("De inhoud wordt niet opgeslagen als u de pagina verlaat! Gebruik 'edit' om uw werk op te slaan");
+}
+</script>
+
+		<script src="#{resource['files/js/custom-updatePand-js.js']}">
+ 
+</script>
+		<script
+			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRZNaT7fSLOt4IaEhRg8J3-4JlmQx7x0M&amp;libraries=geometry&amp;callback=initMap">
+</script>
+
+		<script>
+            
+            var text="";
+            function copyOpp(){
+            text=document.getElementById("span-area").innerHTML;
+            document.execCommand('copy');
+            }
+            
+            function copyLengte(){
+                text=document.getElementById("span-length").innerHTML;
+                document.execCommand('copy');
+            }
+            
+            document.addEventListener('copy', function(e){
+            	
+                e.clipboardData.setData('text/plain', text);
+                e.preventDefault();
+            });
+            
+</script>
+
+		<script
+			src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+	</div>
+</h:body>
+
+
+</html>

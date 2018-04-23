@@ -1,0 +1,119 @@
+package entities;
+
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
+@Entity
+@Table(name="parameter")
+public class Parameter implements Serializable {
+	private static final long serialVersionUID = 3125063178186144972L;
+	
+	// attributen van een parameter
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="idParameter", nullable=false)
+	private String idParameter;
+	
+	@Column(name="type", nullable=false)
+	private String type;
+	
+	@Column(name="eenheid", nullable=false)
+	private String eenheid;
+	
+	@Column(name="aantal", nullable=false)
+	private String aantal;
+	
+	@Column(name="beschrijving", nullable=false)
+	private String beschrijving;
+	
+	@Column(name="naam", nullable=false)
+	private String naam;	
+	
+	public Parameter(){
+		super();
+	}
+
+	public Parameter(String idParameter, String type, String eenheid, String aantal, String beschrijving, String naam) {
+		super();
+		this.idParameter = idParameter;
+		this.type = type;
+		this.eenheid = eenheid;
+		this.aantal = aantal;
+		this.beschrijving = beschrijving;
+		this.naam = naam;
+	}
+	
+	//copyconstructor
+	public Parameter(Parameter parameter) {
+		this.idParameter = parameter.idParameter;
+		this.type = parameter.type;
+		this.eenheid = parameter.eenheid;
+		this.aantal = parameter.aantal;
+		this.beschrijving = parameter.beschrijving;
+		this.naam = parameter.naam;
+	}
+
+	//getters en setters
+	
+	public String getIdParameter() {
+		return idParameter;
+	}
+
+	public void setIdParameter(String idParameter) {
+		this.idParameter = idParameter;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getEenheid() {
+		return eenheid;
+	}
+
+	public void setEenheid(String eenheid) {
+		this.eenheid = eenheid;
+	}
+
+	public String getAantal() {
+		return aantal;
+	}
+
+	public void setAantal(String aantal) {
+		this.aantal = aantal;
+	}
+
+	public String getBeschrijving() {
+		return beschrijving;
+	}
+
+	public void setBeschrijving(String beschrijving) {
+		this.beschrijving = beschrijving;
+	}
+
+	public String getNaam() {
+		return naam;
+	}
+
+	public void setNaam(String naam) {
+		this.naam = naam;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
+	
+}

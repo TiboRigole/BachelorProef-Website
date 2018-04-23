@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+	<link rel="shortcut icon" href="#{resource['images/favicon.png']}" />
+
+
+	<!-- link naar css files -->
+
+	<h:outputStylesheet library="files/css" name="algemeen.css" />
+
+	<title>Login RetailSonar</title>
+</h:head>
+
+<h:body onload="#{userBean.activateRole()}"
+	style="background: url('#{resource['images/retailsonar_swirl.svg']}') no-repeat center center fixed, url('#{resource['images/hero-homepage.jpg']}') no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover">
+
+
+	<nav class=" navbar nav-bottom" style="margin-top:0px"> <img
+		class="nav-item navbar-picture" src="#{resource['images/logo.gif']}" />
+
+	<img class="nav-item nav-logo-text"
+		src="#{resource['images/retailsonar.svg']}" /> </nav>
+
+
+
+
+
+
+
+
+	<!-- 	
+		<svg width="80" height="80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35 24" class="bottom-space logo-icon">
+		  <path class="dots" d="M3.5 14.2c1.4 0 2.6-1.1 2.6-2.4 0-1.3-1.1-2.4-2.6-2.4-1.4 0-2.6 1.1-2.6 2.4 0 1.3 1.2 2.4 2.6 2.4M30.9 14.2c1.4 0 2.6-1.1 2.6-2.4 0-1.3-1.1-2.4-2.6-2.4-1.4 0-2.6 1.1-2.6 2.4 0 1.3 1.1 2.4 2.6 2.4M9 8.2c1.4 0 2.6-1.1 2.6-2.4 0-1.3-1.1-2.4-2.6-2.4-1.4 0-2.6 1.1-2.6 2.4 0 1.4 1.1 2.4 2.6 2.4M25.4 8.2c1.4 0 2.6-1.1 2.6-2.4 0-1.3-1.1-2.4-2.6-2.4-1.4 0-2.6 1.1-2.6 2.4 0 1.4 1.2 2.4 2.6 2.4M17.2 22.6c1.4 0 2.6-1.1 2.6-2.4 0-1.3-1.1-2.4-2.6-2.4-1.4 0-2.6 1.1-2.6 2.4 0 1.3 1.2 2.4 2.6 2.4M17.2 5.9c1.4 0 2.6-1.1 2.6-2.4 0-1.3-1.1-2.4-2.6-2.4-1.4 0-2.6 1.1-2.6 2.4 0 1.3 1.2 2.4 2.6 2.4"></path>
+		  <defs>
+		    <linearGradient id="logogradientb" gradientUnits="userSpaceOnUse" y1="10.853" x2="32.359" y2="10.853">
+		      <stop class="startcolor" offset=".26" stop-color="#EE3251"></stop>
+		      <stop class="stopcolor" offset="1" stop-color="#FD7625"></stop>
+		    </linearGradient> 
+		  </defs>
+		</svg>
+-->
+
+	<div class="vertical-center-full-page">
+
+		<center class="vertical-center">
+			<h:form id="taskForm" method="post" action="j_security_check">
+
+				<h:commandButton type="submit" action="#{userBean.triggerLogin()}"
+					name="submit"
+					class="btn btn-200 btn-vert-space btn-white single-element"
+					value="RetailSonar login" />
+
+
+			</h:form>
+		</center>
+
+	</div>
+
+</h:body>
+
+</html>

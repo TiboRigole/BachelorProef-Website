@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald');
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+    
+    
+html, body{
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;        
+}
+
+.bg {
+    
+    background-color: black;
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+    
+.introductie {
+	background-color: black;
+    background-image: url("http://localhost:8080/ProtoWeb/resources/images/onthaalsonar2.gif");
+    margin: auto;    
+    height: 80%;
+    width: 100%;   
+    display: table;
+    top: 0;
+    background-size: cover;
+}
+
+.introductie .binnen {
+    display: table-cell;
+    vertical-align: middle;
+    width: 100%;
+    max-width: none;
+    text-align: center;
+}
+
+.content {
+    max-width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.content h1{
+    font-family: 'Raleway', sans-serif;
+    color: #F0F2F6;
+    text-shadow: 10px 10px 250px #111;
+    font-size: 300%;
+}
+
+.knop {
+    border-radius: 15px;
+    font-family: 'Oswald', sans-serif;
+    color: azure;
+    font-size: 140%;
+    padding: 15px 25px;
+    border: solid #fff 3px;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.knop:hover {
+    border: solid #ffa500 5px;
+}
+
+p {
+    text-align: right;
+    margin-right: 20px;
+    margin-bottom: 5%;
+    font-size: 150%;
+    line-height: 120%;
+}

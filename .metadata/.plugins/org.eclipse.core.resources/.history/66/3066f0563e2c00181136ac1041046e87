@@ -1,0 +1,88 @@
+package ejb;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.ejb.EJB;
+import javax.ejb.SessionContext;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+import entities.Parameter;
+
+@Stateless
+public class ParameterManagementEJB implements ParameterManagementEJBLocal {
+	@PersistenceContext(unitName = "Project2017-G4")
+	private EntityManager em;
+	
+	@EJB
+	private PandManagementEJBLocal pandEJB;
+	
+	@EJB
+	private UserManagementEJBLocal userEJB;
+	
+	@EJB
+	private ParameterManagementEJBLocal parameterEJB;
+	
+	@Resource
+	private SessionContext ctx;
+	
+	@Override
+	public int getAantal(String parameter){
+		StringBuilder queryString= new StringBuilder ();
+		queryString.append("Select aantal from parameter where idParameter='").append(parameter).append("';");
+		Query q=em.createNativeQuery(queryString.toString());
+		String aantalString=q.getResultList().get(0).toString();
+		int aantal=Integer.parseInt(aantalString);
+		
+		
+		return aantal;
+	}
+	
+	@Override
+	public String getType(String parameter){
+		StringBuilder queryString= new StringBuilder ();
+		queryString.append("Select type from parameter where idParameter='").append(parameter).append("';");
+		Query q=em.createNativeQuery(queryString.toString());
+		String type=q.getResultList().get(0).toString();
+		
+		
+		return type;
+	}
+	
+	@Override
+	public String getBeschrijving(String parameter){
+		StringBuilder queryString= new StringBuilder ();
+		queryString.append("Select beschrijving from parameter where idParameter='").append(parameter).append("';");
+		Query q=em.createNativeQuery(queryString.toString());
+		String beschrijving=q.getResultList().get(0).toString();
+		
+		
+		return beschrijving;
+	}
+	
+	@Override
+	public String getNaam(String parameter){
+		StringBuilder queryString= new StringBuilder ();
+		queryString.append("Select naam from parameter where idParameter='").append(parameter).append("';");
+		Query q=em.createNativeQuery(queryString.toString());
+		String naam=q.getResultList().get(0).toString();
+		
+		
+		return naam;
+	}
+	
+	//
+	//vanaf hier niet meer nmet nativequery maar inwerken op de JPA, misschien nog opschonen
+	//
+	
+	@Override
+	public List<Parameter> getParameterAlles(){
+		Query q = em.createQuery("SELECT p from Parameter p");
+		List<Parameter> parameters = q.getResultList();
+		return parameters;
+	};
+	
+}

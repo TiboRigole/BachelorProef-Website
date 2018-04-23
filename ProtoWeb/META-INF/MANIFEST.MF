@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: ProtoWeb
+Bundle-SymbolicName: ProtoWeb
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: ProtoWeb.jar,
+ Industriele Ingenieurswetenschappen/iiw Ba3/Project/RetailSonarProject/PrototypeWorkspace/ProtoWeb/WebContent/WEB-INF/lib/primefaces-6.2.jar
+Export-Package: controller

@@ -1,0 +1,26 @@
+package ejb;
+
+import java.util.List;
+
+import javax.ejb.Local;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import entities.Parameter;
+
+@Local
+public interface ParameterManagementEJBLocal {
+
+	
+	public String getType(String parameter);
+	
+	public int getAantal(String parameter);
+	
+	public String getBeschrijving(String parameter);
+	
+	public String getNaam(String parameter);
+	
+	public List<Parameter> getParameterNamen();
+}

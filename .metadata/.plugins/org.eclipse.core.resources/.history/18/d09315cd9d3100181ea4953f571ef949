@@ -1,0 +1,87 @@
+package controller;
+
+import javax.ejb.EJB;
+
+import javax.faces.context.FacesContext;
+
+import javax.inject.Named;
+import javax.persistence.Query;
+import javax.servlet.http.HttpServletRequest;
+
+import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.ManagedBean;
+
+import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
+
+import ejb.TemplatesManagementEJBLocal;
+import entities.Templates;
+
+//analoog aan pandBean gemaakt
+//@ManagedBean("TemplatesBean") geeft een error :'(
+@ApplicationScoped
+@Named("templatesBean")
+@ManagedBean(name="templatesBean")
+public class TemplatesBean implements Serializable {
+	private static final long serialVersionUID = -3737221385235612830L;
+
+
+// CLASS ATTRIBUTES
+	public Templates template;
+	
+	//DATABASE
+	@EJB
+	private TemplatesManagementEJBLocal templatesEJB;
+	
+	//een keer variabelen voorzien, zodat we ze niet telkens moeten herdefinieren
+	//werkt geheugensparend
+	
+	//CLASS METHODS
+	public Templates getTemplateById(){
+		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		int winkelId = Integer.parseInt(request.getParameter("Pand").toString()); 
+		long idQuery = Long.valueOf(winkelId);
+		Templates t = templatesEJB.findTemplateById(idQuery);
+		
+		return t;
+		
+	}
+
+	public List<String> getNamen(){
+		return templatesEJB.getAlleParameterNamen();
+	}
+
+	public String checkboxOppervlakte(){
+		String returner ="";
+		System.out.println("hallo hallo we zitten in de methode");
+		if(template.getOppervlakte()==1){returner = "checked";}
+		else{returner = "";}
+		return returner;
+	}
+	
+	//public String toggleLengteVoorgevel(){
+		//logica die de waarde van 0 op 1 zet en omgekeerd
+		//HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		//int winkelId = Integer.parseInt(request.getParameter("Pand").toString()); 
+		//long idQuery = Long.valueOf(winkelId);
+		
+		//templatesEJB.toggleLengteVoorgevel(idQuery);
+		
+		//genereren van de juiste link terug
+		//return "allUsers.faces?faces-redirect=true";
+	//}
+	
+	public String toggleLengteVoorgevel(){
+		ttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		Map<String, String> params =FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+		String parameterOne = params.get("Pand");
+		System.out.println("de parameter"+parameterOne);
+		System.out.println("De request"+request);
+		return "allUsers.faces?faces-redirect=true";
+	}
+
+
+
+
+}

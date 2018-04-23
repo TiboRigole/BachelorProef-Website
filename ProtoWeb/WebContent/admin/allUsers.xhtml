@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<!-- icoontje bovenaan -->
+	<link rel="shortcut icon" href="#{resource['images/favicon.jpg']}" />
+
+	<!-- link naar css files -->
+	<h:outputStylesheet library="files/css" name="aanmakenaccount.css" />
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+	<!-- de iconen vertalen -->
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+
+	<title><ui:insert name="title">Alle Gebruikers</ui:insert></title>
+</h:head>
+
+<h:body onload="init()"
+	style="background:  url(#{resource['images/admin-background-op.jpg']}) no-repeat center center fixed;  
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover">
+
+	<!-- navigatiebar bovenaan de pagina -->
+	<nav class=" navbar nav-bottom"> <img
+		class="nav-item navbar-picture" src="#{resource['images/logo.gif']}" />
+	<img class="nav-item nav-logo-text"
+		src="#{resource['images/retailsonar.svg']}" />
+
+	<div class="topnav-right">
+		<div style="float: left; margin-top: 5px">
+			<h:outputText class="navbar-text" id="welkom"
+				value="Welkom, #{userBean.getNaam()}" />
+		</div>
+
+		<div style="float: right;">
+			<h:form>
+				<h:commandButton class="btn-navbar"
+					action="#{userBean.triggerHomeAdmin()}" value="terug" />
+				<h:commandButton class="btn-navbar" action="#{userBean.logout()}"
+					value="logout" />
+			</h:form>
+		</div>
+	</div>
+	</nav>
+	<!-- einde van de navbar -->
+
+
+	<!-- datatable met alle gebruikers in  -->
+	<center class="vertical-center">
+
+		<div class="container">
+			<h:form id="my-form">
+				<!-- alles dat in de db staat weergeven in een tabel -->
+				<h:dataTable id="dataTable" class="table dataTable"
+					value="#{userBean.getAllUsers()}" var="user" styleClass="users"
+					cellspacing="0" cellpadding="0" border="0" rowClasses="odd,even"
+					columnClasses="name,login,functie,winkel,adres,passwordreset,edit">
+
+
+					<h:column>
+						<f:facet id="facet" name="header">
+							<h:outputText class="text-center" id="fullname" value="name" />
+						</f:facet>
+						<h:outputText style="color:white" value="#{user.name}" />
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText class="text-center" id="login" value="login" />
+						</f:facet>
+						<h:outputText style="color:white" class="login_user"
+							value="#{user.login}" />
+					</h:column>
+
+					<h:column>
+						<f:facet id="facet" name="header">
+							<h:outputText class="text-center" id="functie" value="functie" />
+						</f:facet>
+						<h:outputText style="color:white" class="function_user"
+							value="#{user.person_group.group}" />
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText class="text-center" id="winkel" value="winkel" />
+						</f:facet>
+						<h:outputText style="color:white" value="#{user.winkel}" />
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText class="text-center" id="adress" value="adres" />
+						</f:facet>
+						<h:outputText style="color:white" value="#{user.address}" />
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText class="text-center" id="resetPasswoord"
+								value="password reset" />
+						</f:facet>
+						<input type="button"
+							style="color: white; text-decoration: none; border: none; background: none;"
+							class='material-icons resetImage' value="cached"></input>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText class="text-center" id="edit" value="edit" />
+						</f:facet>
+						<a style="color: white; text-decoration: none"
+							class='material-icons' href="updateUser.faces?User=#{user .id}">edit</a>
+					</h:column>
+
+				</h:dataTable>
+
+			</h:form>
+
+
+		</div>
+	</center>
+
+
+
+	<h:form id="hiddenform">
+		<h:inputHidden id="loginhidden" value="#{userBean.waarde}">
+		</h:inputHidden>
+		<h:commandButton id="hiddenButton" style="display:none"
+			action="#{userBean.resetPassword()}" />
+	</h:form>
+
+	<script>
+		var login;
+
+		function init() {
+			var logins = document.getElementsByClassName("login_user");
+			var buttons = document.getElementsByClassName("resetImage");
+
+			console.log(document.getElementById('loginhidden'));
+			console.log("test5");
+
+			for (var i = 0; logins.length > i; i++) {
+				login = logins[i].innerHTML;
+				console.log("testinit" + login);
+				var method = "set('".concat(login).concat("')");
+
+				buttons[i].setAttribute("onclick", method);
+
+			}
+
+		}
+
+		function set(login) {
+			var loginhidden = document.getElementById("hiddenform:loginhidden");
+			loginhidden.value = login;
+			console.log("test" + loginhidden.value);
+			var button = document.getElementById("hiddenform:hiddenButton");
+			if (confirm("Wachtwoord van " + login + " resetten?")) {
+				button.click();
+				alert("Wachtwoord van " + login + " succesvol gereset.")
+			} else {
+
+			}
+
+		}
+	</script>
+
+</h:body>
+
+</html>
